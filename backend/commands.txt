@@ -1,9 +1,16 @@
 python -m venv venv
 venv/Scripts/Activate
+
 pip install django
 pip install djangorestframework
-pip install pillow
-pip install djangorestframework-simplejwt
 
 python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser
+
+pip install djangorestframework-simplejwt
+pip install pillow
+
+
+
+
