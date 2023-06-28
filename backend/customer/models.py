@@ -1,9 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
+from django.core.validators import RegexValidator
+from django.db import models
+   
 class Customer(AbstractUser):
-    customer_phone = models.CharField(max_length=11, unique=True, null=False, blank=False)
+    phone_regex = RegexValidator(
+        regex=r'^01[0|1|2|5]{1}[0-9]{8}$',
+        message="Please enter a valid Egyptian phone number"
+    )
+    customer_phone = models.CharField(validators=[phone_regex], max_length=11, blank=True)
+    #customer_phone = models.CharField(max_length=11, unique=True, null=False, blank=False)
     customer_image = models.ImageField(upload_to='media/users_images', null=True, blank=True)
     groups = models.ManyToManyField(
         'auth.Group',

@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Wedding_management',
         'USER': 'postgres',
-        'PASSWORD': 'root',
+        'PASSWORD': '0023055@HEkr',
         'HOST': 'localhost',
         'PORT': '5432',
     }
