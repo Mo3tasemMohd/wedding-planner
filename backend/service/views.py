@@ -58,12 +58,14 @@ def showService(request, id):
     except:
         return Response({"Error - This Service Doesn’t Exist"}, status=400)
     
-class ServiceView(APIView):
+class AddServiceView(APIView):
    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+   # authentication_classes = [JWTAuthentication]
    # permission_classes = [IsAuthenticated]
+
     parser_classes = [MultiPartParser, FormParser]
     
-    #@login_required
+    #@login_required Not User as long as we use django_rest_framework
     def post(self, request, format=None):
         service_data = request.data
         image_data = request.FILES.getlist('images')
@@ -84,8 +86,9 @@ class ServiceView(APIView):
         else:
             return Response(service_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ServiceView(APIView):
+class UpdateServiceView(APIView):
    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+   # authentication_classes = [JWTAuthentication]
    # permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
 
@@ -112,6 +115,8 @@ class ServiceView(APIView):
 def deleteService(request, id):
     try:
         service = Service.objects.get(id=id)
+        service.images.all().delete()
+
         service.delete()
         return Response("{} is deleted".format(service))
     except Service.DoesNotExist:

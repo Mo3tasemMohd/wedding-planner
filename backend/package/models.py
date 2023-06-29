@@ -10,7 +10,9 @@ class Package(models.Model):
     services=models.ManyToManyField(Service, related_name='services')
     customer_user=models.OneToOneField(Customer,null=False, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
-
+    
+    def __str__(self):
+        return f"{self.customer_user.first_name} {self.customer_user.last_name} {' Package'}"
 
     # service_id=models.ForeignKey(Service, null=False, on_delete=models.CASCADE, related_name='services')
     # customer_id=models.ForeignKey(Customer,null=False, on_delete=models.CASCADE)

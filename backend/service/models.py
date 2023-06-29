@@ -32,7 +32,7 @@ class Service(models.Model):
     #tryvar=ArrayField(models.CharField(max_length=50))
     
     def __str__(self):
-         return self.service_service_category
+        return f"{self.service_service_category} {self.service_provider.id}"
 
 class ServiceImage(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='images')
@@ -44,9 +44,8 @@ class ReservedDates(models.Model):
     date_reserved = models.DateField(max_length=20)
     slot_reserved = models.IntegerField(null=False)
     
-    # def __str__(self):
-    #      return self.slot_reserved
-    
+    def __str__(self):
+        return f"{self.service_reserved.service_service_category} {self.service_reserved.id} {' Reserved Dates'}"
     # class Meta:
     #     verbose_name_plural = 'ReservedDates'
     
