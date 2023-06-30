@@ -38,7 +38,7 @@ class Customer(AbstractUser):
 
     
     def __str__(self):
-        return self.username
+        return f"{self.username} {self.id}"
     
     class Meta:
         verbose_name_plural = 'Customers'
