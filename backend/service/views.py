@@ -48,6 +48,12 @@ def showAllServicesImages(request):
     serialized_services = ServiceImageSerializer(services, many=True)
     return Response(serialized_services.data)
 
+@api_view(["GET"])
+def service_categories(request):
+   # categories = ['Hall-Reservation', 'Car-Rental', 'Photo-Session', 'MakeUp-Artist']
+    categories = [serviceCategory[0] for serviceCategory in Service.serviceCategories]
+    return Response({'categories': categories})
+
 
 @api_view(["GET"])
 def showService(request, id):
