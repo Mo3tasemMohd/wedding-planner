@@ -4,10 +4,12 @@ import { NotFound } from './pages/NotFound';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Home } from './pages/customer/Home';
+import { Mynav } from './pages/customer/Mynav';
 
 function App() {
   return (
     <div className="App">
+      <Mynav/>
       <Routes>
         {/* Authentication routes */}
         <Route path='' element={<Login/>}/>

@@ -1,0 +1,19 @@
+.logo2{
+    width: 250px;
+    height: 133px;
+    
+    
+}
+@media (max-width: 768px) {
+    .logo2 {
+      margin-left: 0;
+    }
+  }
+ .navlogo2{
+    width: 90px;
+    height: 90px;
+}
+
+.nav{
+    z-index: 2;
+}
