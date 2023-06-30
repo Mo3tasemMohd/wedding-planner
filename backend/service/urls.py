@@ -16,4 +16,9 @@ urlpatterns = [
     path('add-service/', AddServiceView.as_view(), name='add-service'),
     path('update-service/<int:id>', UpdateServiceView.as_view(), name='update-service'),
     path('delete-service/<int:id>', views.deleteService),
+    
+    path('add-service-reserveddate/', views.addReservedDates),
+    path('<int:service_id>/reserveddates', views.getReservedDates)
+    
+    
 ]

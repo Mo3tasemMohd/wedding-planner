@@ -38,7 +38,7 @@ from .serializers import (
 @api_view(["GET"])
 def showAllServices(request):
     paginator = PageNumberPagination()
-    paginator.page_size = 5
+    paginator.page_size = 2
     services = Service.objects.prefetch_related(Prefetch('images', queryset=ServiceImage.objects.all()))
     #services = Service.objects.all()
     
@@ -75,7 +75,7 @@ def showService(request, id):
 class AddServiceView(APIView):
    # authentication_classes = [SessionAuthentication, BasicAuthentication]
    # authentication_classes = [JWTAuthentication]
-   # permission_classes = [IsAuthenticated, IsNotProvider]
+   # permission_classes = [IsAuthenticated, IsProvider]
     permission_classes = [IsProvider] #For Test
 
     parser_classes = [MultiPartParser, FormParser]
@@ -104,7 +104,7 @@ class AddServiceView(APIView):
 class UpdateServiceView(APIView):
    # authentication_classes = [SessionAuthentication, BasicAuthentication]
    # authentication_classes = [JWTAuthentication]
-   # permission_classes = [IsAuthenticated, IsNotProvider]
+   # permission_classes = [IsAuthenticated, IsProvider]
     permission_classes = [IsProvider] #For Test
     parser_classes = [MultiPartParser, FormParser]
 
@@ -130,7 +130,7 @@ class UpdateServiceView(APIView):
 @api_view(["DELETE"])
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 # @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated, IsNotProvider])
+# @permission_classes([IsAuthenticated, IsProvider])
 @permission_classes([IsProvider]) #For Test
 def deleteService(request, id):
     try:
@@ -142,3 +142,27 @@ def deleteService(request, id):
     except Service.DoesNotExist:
         return Response({"Error - This service Does not Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(["POST"])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticated])
+def addReservedDates(request):
+    reserved = request.data
+    serialized_reserved = ReservedDatesSerializer(data=reserved)
+    if serialized_reserved.is_valid():
+        serialized_reserved.save()
+        return Response(serialized_reserved.data, status=201)
+    else:
+        return Response(serialized_reserved.errors, status=400)
+
+
+@api_view(["GET"])
+def getReservedDates(request, service_id):
+    
+    try:
+        reserved_dates = ReservedDates.objects.filter(service_reserved=service_id)
+        serialized_reserved_dates = ReservedDatesSerializer(reserved_dates, many=True)
+        return Response(serialized_reserved_dates.data)
+    except:
+        return Response({"Error - This Service Doesn’t Exist"}, status=400)
