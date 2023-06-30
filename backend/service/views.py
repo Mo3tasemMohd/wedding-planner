@@ -86,7 +86,7 @@ class AddServiceView(APIView):
         image_data = request.FILES.getlist('images')
 
         #Set the service_provider attribute to the currently logged in user
-        #service_data['service_provider'] = request.user.id
+        service_data['service_provider'] = request.user.id
         
         # Create a new Service object
         service_serializer = ServiceSerializer(data=service_data)
@@ -146,7 +146,7 @@ def deleteService(request, id):
 @api_view(["POST"])
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 # @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def addReservedDates(request):
     reserved = request.data
     serialized_reserved = ReservedDatesSerializer(data=reserved)
@@ -157,6 +157,9 @@ def addReservedDates(request):
         return Response(serialized_reserved.errors, status=400)
 
 
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(["GET"])
 def getReservedDates(request, service_id):
     

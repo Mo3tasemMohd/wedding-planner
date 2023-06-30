@@ -1,0 +1,570 @@
+{
+	"info": {
+		"_postman_id": "e084ba70-6352-4253-bfa1-90499627afb2",
+		"name": "Wedding-Planner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9609264",
+		"_collection_link": "https://dark-space-185841.postman.co/workspace/My-Workspace~4eefea60-0943-466c-8ab9-9defcdb068f2/collection/9609264-e084ba70-6352-4253-bfa1-90499627afb2?action=share&creator=9609264&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "moatasem",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "0023055@HEkr",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/customer/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"customer",
+								"api",
+								"token",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "moatasem",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/customer/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"customer",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/customer/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"customer",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "Get All Services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/all-services",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"all-services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/get-service/13",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"get-service",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Services Images",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/all-services-images/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"all-services-images",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service Categories",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Add Service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "service_service_category",
+									"value": "MakeUp-Artist",
+									"type": "text"
+								},
+								{
+									"key": "service_provider",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "service_description",
+									"value": "This is makeup artist from postman",
+									"type": "text"
+								},
+								{
+									"key": "service_location",
+									"value": "Cairo",
+									"type": "text"
+								},
+								{
+									"key": "service_price",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "service_rate",
+									"value": "0.5",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/F:/PIC/New folder/IMG_1084.JPG"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/add-service/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"add-service",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Service",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "service_service_category",
+									"value": "Photo-Session",
+									"type": "text"
+								},
+								{
+									"key": "service_provider",
+									"value": "3",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "service_description",
+									"value": "This is Updated PostMan Description trrrrrrrrrrrrr",
+									"type": "text"
+								},
+								{
+									"key": "service_location",
+									"value": "Assiut",
+									"type": "text"
+								},
+								{
+									"key": "service_price",
+									"value": "5678",
+									"type": "text"
+								},
+								{
+									"key": "service_rate",
+									"value": "0.3",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/F:/PIC/New folder/IMG_1063.JPG"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/update-service/54",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"update-service",
+								"54"
+							],
+							"query": [
+								{
+									"key": "service_service_category",
+									"value": "Photo-Session",
+									"disabled": true
+								},
+								{
+									"key": "service_provider",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "service_description",
+									"value": "This is Updated PostMan Description",
+									"disabled": true
+								},
+								{
+									"key": "service_location",
+									"value": "Assiut",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Service",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/delete-service/53",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"delete-service",
+								"53"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Package",
+			"item": [
+				{
+					"name": "Show Customer Package",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/package/view-package/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"package",
+								"view-package",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Customer Package Services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/package/view-package-services/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"package",
+								"view-package-services",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add To Package",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "services",
+									"value": "13",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/package/addto-package/3/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"package",
+								"addto-package",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete From  Package",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "services",
+									"value": "13",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/package/deletefrom-package/3/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"package",
+								"deletefrom-package",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ReservedDates",
+			"item": [
+				{
+					"name": "Add Service ReservedDate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "service_reserved",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "date_reserved",
+									"value": "1998-12-29",
+									"type": "text"
+								},
+								{
+									"key": "slot_reserved",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/add-service-reserveddate/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"add-service-reserveddate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service ReservedDates",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
