@@ -15,13 +15,13 @@ class IsProvider(BasePermission):   #request.user = object.user.customer
         return customer_user.is_provider
 
 #For Autentication    
-# class IsNotProvider(BasePermission):
-#     def has_permission(self, request, view):
-#         return request.user.is_authenticated and not request.user.is_provider
-
-#For No Authentication Test
 class IsNotProvider(BasePermission):
     def has_permission(self, request, view):
-        customer_user = get_object_or_404(Customer, id=view.kwargs['id'])
-        return not customer_user.is_provider
+        return request.user.is_authenticated and not request.user.is_provider 
+
+#For No Authentication Test
+# class IsNotProvider(BasePermission):
+#     def has_permission(self, request, view):
+#         customer_user = get_object_or_404(Customer, id=view.kwargs['id'])
+#         return not customer_user.is_provider
     

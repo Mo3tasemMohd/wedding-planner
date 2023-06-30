@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from django.contrib.auth.models import AbstractUser
 
@@ -26,10 +27,16 @@ class Customer(AbstractUser):
         related_name='customer_user_permissions',
         blank=True,
     )
+    def get_tokens(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
 
     
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return self.username
     
     class Meta:
         verbose_name_plural = 'Customers'

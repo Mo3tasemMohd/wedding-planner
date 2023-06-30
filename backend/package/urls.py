@@ -5,10 +5,10 @@ from package import views
 
 
 urlpatterns = [
-    path('view-package/<int:id>', views.CustomerPackage),
-    path('view-package-services/<int:id>', views.CustomerPackageServices),
-    path('addto-package/<int:id>/', views.AddToPackage),
-    path('deletefrom-package/<int:id>/', views.DeleteFromPackage),
+    path('view/', views.CustomerPackage),
+    path('view-package-services/', views.CustomerPackageServices),
+    path('add-to-package/', views.AddToPackage),
+    path('delete-from-package/', views.DeleteFromPackage),
 
     
 

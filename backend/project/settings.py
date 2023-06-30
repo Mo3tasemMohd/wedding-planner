@@ -24,7 +24,8 @@ SECRET_KEY = 'django-insecure-@*)fhwa^i)sqk7_cs9dtu-3f2$%0z=ds+n&%wf(pr*kz=*#_i-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-#ALLOWED_HOSTS = ['1270.0.1']
+
+# ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -39,13 +40,27 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 
     'rest_framework',
+    'corsheaders',
+    'rest_framework_simplejwt',
     
     'service',
     'service_provider',
     'customer',
     'package',
 ]
+AUTH_USER_MODEL='customer.Customer'
+REST_FRAMEWORK = {
 
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        
+    )
+}
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=200),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,8 +69,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
-
+CORS_ORIGIN_WHITELIST = [
+'http://localhost:3000'
+]
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
@@ -85,7 +104,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Wedding_management',
         'USER': 'postgres',
-        'PASSWORD': '0023055@HEkr',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '5432',
     }
