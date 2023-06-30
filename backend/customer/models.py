@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 
 class Customer(AbstractUser):
     customer_phone = models.CharField(max_length=11, unique=True, null=False, blank=False)
-    customer_image = models.ImageField(upload_to='media/users_images', null=True, blank=True)
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='customer_groups',
@@ -15,7 +16,12 @@ class Customer(AbstractUser):
         related_name='customer_user_permissions',
         blank=True,
     )
-
+    def get_tokens(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
     
     def __str__(self):
         return self.username

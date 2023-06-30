@@ -40,13 +40,27 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 
     'rest_framework',
+    'corsheaders',
+    'rest_framework_simplejwt',
     
     'service',
     'service_provider',
     'customer',
     'package',
 ]
+AUTH_USER_MODEL='customer.Customer'
+REST_FRAMEWORK = {
 
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        
+    )
+}
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=200),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,8 +69,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
-
+CORS_ORIGIN_WHITELIST = [
+'http://localhost:3000'
+]
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [

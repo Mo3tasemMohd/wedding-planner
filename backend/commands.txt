@@ -10,6 +10,21 @@ python manage.py createsuperuser
 
 pip install djangorestframework-simplejwt
 pip install pillow
+---------------------------------------------------------------
+Eslam:
+
+pip install django-cors-headers
+'corsheaders', added to installed apps
+
+'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware', both were added to MIDDLEWARE
+
+CORS_ORIGIN_WHITELIST = [
+'http://localhost:3000'
+]
+
+
+
 
 
 
