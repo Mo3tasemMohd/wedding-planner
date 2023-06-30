@@ -1,10 +1,35 @@
 from django.db import models
+from django.utils import timezone
+
 from django.contrib.auth.models import AbstractUser
 
+from django.core.validators import RegexValidator
+from django.db import models
+   
+class Customer(AbstractUser):
+    phone_regex = RegexValidator(
+        regex=r'^01[0|1|2|5]{1}[0-9]{8}$',
+        message="Please enter a valid Egyptian phone number"
+    )
+    customer_phone = models.CharField(validators=[phone_regex], max_length=11, blank=False)
+    #customer_phone = models.CharField(max_length=11, unique=True, null=False, blank=False)
+    customer_image = models.ImageField(upload_to='media/users_images', null=True, blank=True)
+    is_provider = models.BooleanField(default = False)
+    created_at = models.DateTimeField(default=timezone.now)
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customer_groups',
+        blank=True,
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customer_user_permissions',
+        blank=True,
+    )
 
-class Customer(models.Model):
-    email=models.EmailField(max_length=255,unique=True)
-    phone_number = models.CharField(max_length=11,unique=True, null=False, blank=True) 
-    # USERNAME_FIELD='email'
-    # REQUIRED_FIELDS=['username']
-    user_image=models.ImageField(upload_to='media/users_images', null=True,blank=True)
+    
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+    
+    class Meta:
+        verbose_name_plural = 'Customers'

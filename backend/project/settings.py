@@ -24,8 +24,7 @@ SECRET_KEY = 'django-insecure-@*)fhwa^i)sqk7_cs9dtu-3f2$%0z=ds+n&%wf(pr*kz=*#_i-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['1270.0.1']
 
 
 # Application definition
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
 
     'rest_framework',
     
@@ -82,8 +82,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Wedding_management',
+        'USER': 'postgres',
+        'PASSWORD': '0023055@HEkr',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
