@@ -9,6 +9,7 @@ from .views import AddServiceView, UpdateServiceView
 
 urlpatterns = [
     path('all-services/', views.showAllServices),
+    path('all-services', views.showAllServices),
     path('all-services-images/', views.showAllServicesImages),
     path('service-categories/', views.service_categories, name='service_categories'),
     path('get-service/<int:id>', views.showService),

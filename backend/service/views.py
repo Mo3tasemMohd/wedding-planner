@@ -41,6 +41,11 @@ def showAllServices(request):
     paginator.page_size = 5
     services = Service.objects.prefetch_related(Prefetch('images', queryset=ServiceImage.objects.all()))
     #services = Service.objects.all()
+    
+    category = request.query_params.get('category', None)
+    if category is not None:
+        services = services.filter(service_service_category=category)
+
     paginated_services = paginator.paginate_queryset(services, request)
     serialized_services = ServiceSerializer(paginated_services, many=True)
     return paginator.get_paginated_response(serialized_services.data)
