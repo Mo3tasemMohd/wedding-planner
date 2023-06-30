@@ -9,6 +9,7 @@ from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import BasePermission
 from rest_framework.permissions import AllowAny
 
 
@@ -18,6 +19,7 @@ from rest_framework.parsers import MultiPartParser, FileUploadParser, FormParser
 from rest_framework.views import APIView
 from django.middleware.csrf import get_token
 
+from project.permissions import IsProvider, IsNotProvider
 
 from .models import (
     Service,
@@ -31,6 +33,7 @@ from .serializers import (
     ReservedDatesSerializer,
     #ServiceCategorySerializer,
 )
+
 
 @api_view(["GET"])
 def showAllServices(request):
@@ -67,7 +70,8 @@ def showService(request, id):
 class AddServiceView(APIView):
    # authentication_classes = [SessionAuthentication, BasicAuthentication]
    # authentication_classes = [JWTAuthentication]
-   # permission_classes = [IsAuthenticated]
+   # permission_classes = [IsAuthenticated, IsNotProvider]
+    permission_classes = [IsProvider] #For Test
 
     parser_classes = [MultiPartParser, FormParser]
     
@@ -95,7 +99,8 @@ class AddServiceView(APIView):
 class UpdateServiceView(APIView):
    # authentication_classes = [SessionAuthentication, BasicAuthentication]
    # authentication_classes = [JWTAuthentication]
-   # permission_classes = [IsAuthenticated]
+   # permission_classes = [IsAuthenticated, IsNotProvider]
+    permission_classes = [IsProvider] #For Test
     parser_classes = [MultiPartParser, FormParser]
 
     def put(self, request, id, format=None):
@@ -118,6 +123,10 @@ class UpdateServiceView(APIView):
             return Response({"Error - This Service Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
                 
 @api_view(["DELETE"])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticated, IsNotProvider])
+@permission_classes([IsProvider]) #For Test
 def deleteService(request, id):
     try:
         service = Service.objects.get(id=id)

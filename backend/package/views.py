@@ -26,16 +26,18 @@ from customer.serializers import CustomerSerializer
 from service.models import Service
 from service.serializers import ServiceSerializer
 
+from project.permissions import IsProvider, IsNotProvider
 
 @api_view(["GET"])
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 # @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated, IsNotProvider])
+@permission_classes([IsNotProvider]) #For Test
 def CustomerPackage(request, id):    
     Current_customer_user = get_object_or_404(Customer, id=id )
    # Current_customer_user = get_object_or_404(Customer, id=request.user.id ) 
    # Current_customer_user = request.user
-    #Package.objects.create(customer_user=Current_customer_user, package_price=100) #Must Be Created On User Registration
+    Package.objects.create(customer_user=Current_customer_user, package_price=100) #Must Be Created On User Registration
     try:
         package = Package.objects.get(customer_user=Current_customer_user)
         serialized_Package = PackageSerializer(package)
@@ -44,9 +46,10 @@ def CustomerPackage(request, id):
         return Response({"Error - Something Went Wrong"}, status=400)
 
 @api_view(['GET'])
-# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @authentication_classes([SessionAuthentication, BasicAuthentication]) 
 # @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated, IsNotProvider])
+@permission_classes([IsNotProvider]) #For Test
 def CustomerPackageServices(request, id):
     Current_customer_user = get_object_or_404(Customer, id=id )
    # Current_customer_user = get_object_or_404(Customer, id=request.user.id ) 
@@ -62,7 +65,8 @@ def CustomerPackageServices(request, id):
 @api_view(["POST"])
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 # @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated, IsNotProvider])
+@permission_classes([IsNotProvider]) #For Test
 def AddToPackage(request, id):
     Current_customer_user = get_object_or_404(Customer, id=id)
    # Current_customer_user = get_object_or_404(Customer, id=request.user.id ) 
