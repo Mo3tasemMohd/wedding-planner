@@ -4,9 +4,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from django.contrib.auth.models import AbstractUser
 
-from django.core.validators import RegexValidator
-from django.db import models
-   
+
 class Customer(AbstractUser):
     phone_regex = RegexValidator(
         regex=r'^01[0|1|2|5]{1}[0-9]{8}$',
@@ -26,7 +24,9 @@ class Customer(AbstractUser):
         'auth.Permission',
         related_name='customer_user_permissions',
         blank=True,
+
     )
+    
     def get_tokens(self):
         refresh = RefreshToken.for_user(self)
         return {
