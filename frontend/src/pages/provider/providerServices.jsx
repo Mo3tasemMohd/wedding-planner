@@ -42,7 +42,7 @@ export function ProviderService() {
                 </div>
 
                 {
-                services.results.map((service) => {
+                services.results && services.results.map((service) => {
                     return (
                         // <NavLink className={'nav-link'}>
                         <ProviderServiceCard key={service.id} service={service} className="border-5" />
