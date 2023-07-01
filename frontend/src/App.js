@@ -22,7 +22,7 @@ function App() {
         {/* Provider routes */}
         <Route path='/provider/services' element={<ProviderService />} />
 
-        <Route path='/provider/services/:id' element={<ServiceDetails />} />
+        {/* <Route path='/provider/services/:id' element={<ServiceDetails />} /> */}
         <Route path='/provider/services/:id/edit' element={<ServiceForm />} />
 
         <Route path='//' element={<NotFound />} />
