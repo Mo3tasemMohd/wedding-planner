@@ -51,6 +51,28 @@ def showAllServices(request):
     return paginator.get_paginated_response(serialized_services.data)
 
 @api_view(["GET"])
+@permission_classes([IsProvider]) #For Test
+def showLoggedServices(request):
+    try:
+        #provider = request.user  # assuming the authenticated user is a provider
+        services = Service.objects.filter(service_provider=request.user ).prefetch_related(Prefetch('images', queryset=ServiceImage.objects.all()))
+        serialized_services = ServiceSerializer(services, many=True)
+        return Response(serialized_services.data)
+    except:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["GET"])
+def showProviderServices(request, provider_id):
+    try:
+        services = Service.objects.filter(service_provider=provider_id).prefetch_related(Prefetch('images', queryset=ServiceImage.objects.all()))
+        serialized_services = ServiceSerializer(services, many=True)
+        return Response(serialized_services.data)
+
+    except:
+        return Response({"Error - This Provider Doesn’t Exist"}, status=400)
+
+
+@api_view(["GET"])
 def showAllServicesImages(request):
     services = ServiceImage.objects.all()
     serialized_services = ServiceImageSerializer(services, many=True)
@@ -70,7 +92,7 @@ def showService(request, id):
         serialized_Service = ServiceSerializer(service)
         return Response(serialized_Service.data, status=200)
     except:
-        return Response({"Error - This Service Doesn’t Exist"}, status=400)
+        return Response({"Error - This Service Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
     
 class AddServiceView(APIView):
    # authentication_classes = [SessionAuthentication, BasicAuthentication]
@@ -113,6 +135,10 @@ class UpdateServiceView(APIView):
             service = Service.objects.get(id=id)
             image_data = request.FILES.getlist('images')
             
+            if request.user != service.service_provider:
+           # if request.user.id != service.service_provider.id:
+                return Response({"Error - You are not authorized to update this service"}, status=status.HTTP_401_UNAUTHORIZED)
+
             service_serializer = ServiceSerializer(service, data=request.data, partial=True)
             if service_serializer.is_valid():
                 service_serializer.save()
@@ -135,13 +161,16 @@ class UpdateServiceView(APIView):
 def deleteService(request, id):
     try:
         service = Service.objects.get(id=id)
+        if request.user != service.service_provider:
+           # if request.user.id != service.service_provider.id:
+             return Response({"Error - You are not authorized to Delete this service"}, status=status.HTTP_401_UNAUTHORIZED)
+
         service.images.all().delete()
 
         service.delete()
         return Response("{} is deleted".format(service))
     except Service.DoesNotExist:
         return Response({"Error - This service Does not Exist"}, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(["POST"])
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
@@ -152,9 +181,9 @@ def addReservedDates(request):
     serialized_reserved = ReservedDatesSerializer(data=reserved)
     if serialized_reserved.is_valid():
         serialized_reserved.save()
-        return Response(serialized_reserved.data, status=201)
+        return Response(serialized_reserved.data, status=status.HTTP_201_CREATED)
     else:
-        return Response(serialized_reserved.errors, status=400)
+        return Response(serialized_reserved.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
@@ -166,6 +195,17 @@ def getReservedDates(request, service_id):
     try:
         reserved_dates = ReservedDates.objects.filter(service_reserved=service_id)
         serialized_reserved_dates = ReservedDatesSerializer(reserved_dates, many=True)
-        return Response(serialized_reserved_dates.data)
+        return Response(serialized_reserved_dates.data, status=status.HTTP_200_OK)
     except:
-        return Response({"Error - This Service Doesn’t Exist"}, status=400)
+        return Response({"Error - This Service Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["DELETE"])
+@permission_classes([IsProvider])
+def deleteReservedDates(request, reserved_date_id):
+    try:
+        reserved_date = ReservedDates.objects.get(id=reserved_date_id)
+        reserved_date.delete()
+        return Response(status=status.HTTP_200_OK)
+    except:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    
