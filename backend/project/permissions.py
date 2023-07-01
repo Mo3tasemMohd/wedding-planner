@@ -13,6 +13,8 @@ class IsProvider(BasePermission):
 #     def has_permission(self, request, view):
 #         customer_user = get_object_or_404(Customer, id=request.data['service_provider'])
 #         return customer_user.is_provider
+
+# hatem
 # class IsProvider(BasePermission):   #request.user = object.user.customer
 #     def has_permission(self, request, view):
 #         customer_user = get_object_or_404(Customer, id=request.user.id)
