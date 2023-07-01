@@ -27,7 +27,7 @@ export function ProviderServiceCard(props) {
                     <div className='col-md-4 col-sm-3'>
 
                         <Carousel activeIndex={index} onSelect={handleSelect}>
-                            {service.images.map((img, j) => (
+                            {service.images && service.images.map((img, j) => (
                                 <Carousel.Item key={j}>
                                     <Card.Img
                                         className='img-card col-sm-12 col-md-12'
