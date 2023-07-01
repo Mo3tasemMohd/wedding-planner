@@ -6,17 +6,17 @@ import navlogo2 from '../../media/home/navlogo2.png'
 import '../../CSS/mynav.css'
 export  function Mynav() {
   return (
-<div className='body text-align-center'>
-  <Navbar expand="md" sticky="top" className='nav' >
+<div className=' parent body text-align-center'>
+  <Navbar className='nav' expand="md" sticky="top"   >
 
       <Navbar.Brand href="#home">
         <img className='logo2' src={logo2} alt="Logo"></img>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center ">
-        <Nav className="ms-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Services</Nav.Link>
+        <Nav className="navtext ms-auto">
+          <Nav.Link className='home'   href="#home">Home</Nav.Link>
+          <Nav.Link className='service' href="#features">Services</Nav.Link>
         </Nav>
       </Navbar.Collapse>
       <div className="d-flex justify-content-center align-items-center navlogo-container">

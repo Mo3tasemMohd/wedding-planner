@@ -4,10 +4,29 @@
     
     
 }
-@media (max-width: 768px) {
+@media (max-width: 770px) {
     .logo2 {
-      margin-left: 0;
+      margin-left: 8rem;
     }
+    .navlogo2{
+        margin-right:1px; 
+
+    }
+    .navtext .home{
+    
+        margin-bottom: 1rem;
+        width: 100%;
+        font-weight: bold;
+        background-color: rgba(252, 234, 238, 0.75) 
+    }
+    .navtext .service{
+        width: 100%;
+        font-weight: bold;
+        background-color: rgba(252, 234, 238, 0.75) 
+    }
+   
+   
+
   }
  .navlogo2{
     width: 90px;
@@ -15,5 +34,27 @@
 }
 
 .nav{
-    z-index: 2;
+   
+    background-color: rgba(252, 234, 238, 0.404) 
+    
+
+ 
+}
+.body{
+    position: absolute;
+    width: 100%;
+}
+
+
+.navtext .home{
+    
+    margin-right: 1rem;
+    font-weight: bold;
+    background-color: rgba(252, 234, 238, 0.75) 
+}
+.navtext .service{
+    
+    margin-right: 1rem;
+    font-weight: bold;
+    background-color: rgb(252, 234, 238,0.75) 
 }
