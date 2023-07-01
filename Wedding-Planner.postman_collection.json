@@ -552,7 +552,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/package/view-package/3",
+							"raw": "http://127.0.0.1:8000/package/view/3",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -563,7 +563,7 @@
 							"port": "8000",
 							"path": [
 								"package",
-								"view-package",
+								"view",
 								"3"
 							]
 						}
@@ -777,6 +777,31 @@
 								"service",
 								"10",
 								"reserveddates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Service ReservedDate",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/10/reserveddates/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"10",
+								"reserveddates",
+								""
 							]
 						}
 					},

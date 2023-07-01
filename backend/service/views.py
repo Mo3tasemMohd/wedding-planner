@@ -161,6 +161,10 @@ class UpdateServiceView(APIView):
 def deleteService(request, id):
     try:
         service = Service.objects.get(id=id)
+        if request.user != service.service_provider:
+           # if request.user.id != service.service_provider.id:
+             return Response({"Error - You are not authorized to Delete this service"}, status=status.HTTP_401_UNAUTHORIZED)
+
         service.images.all().delete()
 
         service.delete()
