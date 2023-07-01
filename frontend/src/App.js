@@ -4,6 +4,7 @@ import { NotFound } from './pages/NotFound';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Home } from './pages/customer/Home';
+import { ProviderService } from './pages/provider/providerServices';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         {/* Customer routes */}
 
         {/* Provider routes */}
+        <Route path='/provider/services' element={<ProviderService />} />
         <Route path='//' element={<NotFound />} />
       </Routes>
     </div>

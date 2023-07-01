@@ -102,10 +102,10 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-'ENGINE': 'django.db.backends.postgresql',
+    'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Wedding_management',
         'USER': 'postgres',
-        'PASSWORD': '0023055@HEkr',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '5432',
         }

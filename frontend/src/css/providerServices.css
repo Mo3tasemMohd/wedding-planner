@@ -1,0 +1,99 @@
+.light-back {
+    background-color: aliceblue !important;
+}
+i::before {
+    color: #630655;
+}
+
+i {
+    position: relative;
+    top: 8px;
+    left: 20px
+}
+
+
+.cartprodcard:hover {
+    cursor: pointer;
+} 
+
+.cartprodcard {
+    background-color: rgba(171, 205, 205, 0.4) !important;
+}
+
+.cartcardbtn  * {
+    color: black;
+ 
+}
+
+.cartcardbtn {
+    background-image: linear-gradient(135deg, #ce0000df 10%, #750000 100%);
+    color: #ffffff;
+    padding: 8px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.cartcardbtn:hover {
+    background-image: linear-gradient(135deg, #e30808 10%, #ff1818 100%);
+    color: #ffffff;
+
+}
+
+.cartcardbtn:disabled {
+    background-image: linear-gradient(135deg, #545757 10%, #3a3a41 100%);
+}
+
+#cart-img-card {
+    width: 250px;
+    height: 240px;
+    object-fit: contain;
+}
+
+.provider-services {
+    background-image: url('../../public/rings.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+
+.blurred-text {
+    position: relative;
+    display: inline-block;
+    font-size: 48px;
+    color: rgb(1, 0, 0);
+    text-shadow: 0px 0px 10px  rgba(101, 1, 1, 0.5);
+    margin: 20px;
+  }
+  
+  .blurred-text::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
+    background: linear-gradient(to bottom, #FF4136, #FFDC00);
+    filter: blur(20px);
+  }
+
+
+  .nav-link {
+    text-decoration: none;
+  }
+
+  .location-item{
+    color: #750000;
+  }
+
+.text-output-area {
+  white-space: 'pre-wrap';
+  overflow: 'auto'; 
+  max-height: '150px';
+  border: solid 1px white;
+  padding: 1rem;
+  width: 80%;
+  border-radius: 10px;
+}
