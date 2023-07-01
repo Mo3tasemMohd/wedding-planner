@@ -20,7 +20,7 @@ class Service(models.Model):
     # add a field to store the enum value
     service_service_category = models.CharField(max_length=20, choices=serviceCategories)
     service_price=models.DecimalField(decimal_places=2,max_digits=10)
-    service_rate=models.DecimalField(decimal_places=1,max_digits=2)
+    service_rate=models.DecimalField(decimal_places=1,max_digits=2, default=0)
     service_description=models.TextField(max_length=2000)
     service_location= models.TextField(max_length=400)
     #service_service_category = models.ForeignKey(ServiceCategory, null=False, on_delete=models.CASCADE)#enum
