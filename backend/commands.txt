@@ -10,6 +10,7 @@ python manage.py createsuperuser
 
 pip install djangorestframework-simplejwt
 pip install pillow
+pip install psycopg2
 ---------------------------------------------------------------
 Eslam:
 

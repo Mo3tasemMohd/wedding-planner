@@ -9,9 +9,13 @@ from django.shortcuts import get_object_or_404
 #         return request.user.is_authenticated and request.user.is_provider
 
 #For No Authentication - Test
+# class IsProvider(BasePermission):   #request.user = object.user.customer
+#     def has_permission(self, request, view):
+#         customer_user = get_object_or_404(Customer, id=request.data['service_provider'])
+#         return customer_user.is_provider
 class IsProvider(BasePermission):   #request.user = object.user.customer
     def has_permission(self, request, view):
-        customer_user = get_object_or_404(Customer, id=request.data['service_provider'])
+        customer_user = get_object_or_404(Customer, id=request.user.id)
         return customer_user.is_provider
 
 #For Autentication    
