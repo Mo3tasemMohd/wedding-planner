@@ -4,20 +4,25 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 from customer.serializers import CustomerSerializer
-from rest_framework.decorators import api_view  
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status,generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from customer import models
+from project.permissions import IsNotProvider, IsProvider
+from rest_framework.permissions import AllowAny
 
 
 # Create your views here.
 
 #Register End-Point
-class GetCustomer(generics.ListAPIView):
-    queryset=models.Customer.objects.all()
-    serializer_class=CustomerSerializer
+@api_view(['GET'])
+@permission_classes([AllowAny]) #For Test
+def get_customer(request):
+    customer = models.Customer.objects.get(id=request.user.id) 
+    serializer = CustomerSerializer(customer)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def register(request):

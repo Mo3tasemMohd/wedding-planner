@@ -32,13 +32,7 @@ export function CustomerService() {
               }
               */
             );
-            if (response.status === 200) {
-                console.log("Successful")
-            }
-            console.log(response)
-
             setServices(response.data);
-            console.log(services)
         } catch (error) {
             console.error(error);
         }
