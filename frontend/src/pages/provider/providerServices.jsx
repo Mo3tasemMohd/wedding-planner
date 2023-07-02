@@ -10,7 +10,7 @@ export function ProviderService(props) {
     const [services, setServices] = useState([]);
     let category = props
     useEffect(() => {
-        fetchProducts(category);
+        fetchProducts("Hall-Reservation");
     }, []);
 
     const fetchProducts = async (category) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../../CSS/home.css'
+import '../../css/home.css'
 import Hall from '../../media/home/Hall.jpg'
 import Cars from '../../media/home/Cars.jpg'
 import Photosessions from '../../media/home/Photosessions.jpg'

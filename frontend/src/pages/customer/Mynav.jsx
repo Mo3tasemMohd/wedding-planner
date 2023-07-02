@@ -3,7 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap'
 
 import logo2 from '../../media/home/logo2.png'
 import navlogo2 from '../../media/home/navlogo2.png'
-import '../../CSS/mynav.css'
+import '../../css/mynav.css'
 export  function Mynav() {
   return (
 <div className=' parent body text-align-center'>
