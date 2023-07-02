@@ -52,7 +52,3 @@ class ReservedDatesSerializer(serializers.ModelSerializer):
         if value < date.today():
             raise serializers.ValidationError("Date reserved cannot be in the past.")
         return value
-
-
-
-          

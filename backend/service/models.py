@@ -44,7 +44,3 @@ class ReservedDates(models.Model):
         return f"{self.service_reserved.service_service_category} {self.service_reserved.id} {' Reserved Dates'}"
     # class Meta:
     #     verbose_name_plural = 'ReservedDates'
-    
-   
-
-
