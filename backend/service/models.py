@@ -9,6 +9,11 @@ from customer.models import Customer
 #     def __str__(self):
 #         return self.service_category_name
 
+class ServiceCategory(models.Model):
+    service_category_name=models.TextField(max_length=255)
+    def __str__(self):
+        return self.service_category_name
+
 class Service(models.Model):
     serviceCategories = [
         ('Hall-Reservation', 'Hall-Reservation'),
@@ -27,6 +32,8 @@ class Service(models.Model):
     service_provider = models.ForeignKey(Customer, null=False, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     #service_images=ArrayField(models.ImageField(upload_to='media/service_images'), blank=True)
+    service_service_category=models.ForeignKey(ServiceCategory, on_delete=models.CASCADE)
+    # service_images=ArrayField(models.ImageField(upload_to='media/service_images'), blank=True)
     
     def __str__(self):
         return f"{self.service_service_category} {self.service_provider.id}"
