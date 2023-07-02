@@ -19,7 +19,6 @@ export default function ServiceForm() {
         e.preventDefault();
         let formData = new FormData();
         formData.append('service_service_category', formValues.service_service_category);
-        console.log(formValues.service_service_category)
         formData.append('service_price', formValues.service_price);
         formData.append('service_description', formValues.service_description);
         formData.append('service_location', formValues.service_location);
@@ -27,23 +26,15 @@ export default function ServiceForm() {
             formData.append('images', formValues.images[i]);
         }
 
+        const token = localStorage.getItem('token');
+        console.log(token);
+
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        };
+
         if (id === '0') {
-            /*   const response = await axios.get(url
-               , {
-                  headers: {
-                      'Authorization': `Bearer ${token}`,
-                      'Content-Type': 'application/json'
-                  }
-              }*/
-
-            const token = localStorage.getItem('token');
-            console.log(token);
-
-            const headers = {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'
-            };
-
             axios.post('http://127.0.0.1:8000/service/add-service/', formData, { headers })
                 .then(() => {
                     // navigate('/services');
@@ -53,7 +44,7 @@ export default function ServiceForm() {
                 });
 
         } else {
-            axios.put(`http://127.0.0.1:8000/services/${id}/`, formData)
+            axios.put(`http://127.0.0.1:8000/service/update-service/${id}/`, formData, { headers })
                 .then(() => {
                     // navigate('/services');
                 })
@@ -78,7 +69,7 @@ export default function ServiceForm() {
     };
 
     let getService = async () => {
-        let response = await axios.get(`http://127.0.0.1:8000/services/${id}/`);
+        let response = await axios.get(`http://127.0.0.1:8000/service/get-service/${id}/`);
         setService(response.data);
         setFormValues({
             service_service_category: response.data.service_service_category,

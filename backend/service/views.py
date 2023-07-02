@@ -88,7 +88,9 @@ def service_categories(request):
 @api_view(["GET"])
 def showService(request, id):
     try:
+        print("?/??????????????????????????????????????????????")
         service = Service.objects.get(id=id)
+        print(service)
         serialized_Service = ServiceSerializer(service)
         return Response(serialized_Service.data, status=200)
     except:
@@ -132,8 +134,13 @@ class UpdateServiceView(APIView):
 
     def put(self, request, id, format=None):
         try:
+            print("#############################################")
             service = Service.objects.get(id=id)
+            print(service)
             image_data = request.FILES.getlist('images')
+            print(image_data)
+            print("#############################################")
+            
             
             if request.user != service.service_provider:
            # if request.user.id != service.service_provider.id:
