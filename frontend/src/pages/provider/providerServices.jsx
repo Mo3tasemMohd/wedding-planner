@@ -6,19 +6,29 @@ import "../../css/providerServices.css"
 import axios from 'axios';
 
 
-export function ProviderService() {
+export function ProviderService(props) {
     const [services, setServices] = useState([]);
-
+    let category = props
     useEffect(() => {
-        fetchProducts();
+        fetchProducts(category);
     }, []);
 
-    const fetchProducts = async () => {
+    const fetchProducts = async (category) => {
         try {
-            let url = 'http://127.0.0.1:8000/service/all-services/';
-            const response = await axios.get(url, {user: "hatemgad98@gmail.com"});
-            if (response.status === 200){
-                    console.log("Successful")
+            
+            const url = `http://127.0.0.1:8000/service/all-services/?category=${category}`;
+            const token = localStorage.getItem('token');
+            const response = await axios.get(url
+              /* , {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+            */
+            );
+            if (response.status === 200) {
+                console.log("Successful")
             }
             console.log(response)
 
@@ -42,14 +52,14 @@ export function ProviderService() {
                 </div>
 
                 {
-                services.results && services.results.map((service) => {
-                    return (
-                        // <NavLink className={'nav-link'}>
-                        <ProviderServiceCard key={service.id} service={service} className="border-5" />
-                        // </NavLink>
-                    );
-                }
-                )}
+                    services.results && services.results.map((service) => {
+                        return (
+                            // <NavLink className={'nav-link'}>
+                            <ProviderServiceCard key={service.id} service={service} className="border-5" />
+                            // </NavLink>
+                        );
+                    }
+                    )}
             </div>
         </div>
 
