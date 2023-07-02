@@ -1,0 +1,33 @@
+.bg{
+    z-index: 2;
+    width: 100%;
+    position: relative;
+
+}
+.cards{
+
+ background-color: rgba(252, 224, 230, 0.877) ;
+ margin-top: 0;
+}
+
+.card-with-transition {
+    opacity: 0;
+    transition: opacity 2s;
+    background-color: rgba(231, 241, 243, 0.247) ;
+    border-radius: 15px;
+    
+    
+    
+    
+  }
+  
+  .card-with-transition.visible {
+    opacity: 1;
+  }
+
+  .body{
+    background-color: #FFDEE9;
+background-image: linear-gradient(180deg, #ffeef4 0%, #caf8f7a8 100%);
+
+
+  }
