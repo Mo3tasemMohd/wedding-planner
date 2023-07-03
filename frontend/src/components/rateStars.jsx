@@ -3,7 +3,6 @@ import "../css/providerServices.css"
 import ReactStars from 'react-rating-stars-component';
 
 export function RateStars({ rating }) {
-    const RateStars = Math.round(rating);
     return (
             <ReactStars
                 count={5}
@@ -12,7 +11,7 @@ export function RateStars({ rating }) {
                 activeColor="#ffd700"
                 edit={false}
                 isHalf={true}
-                classNames="star-rating"
+                className="star-rating"
             />
 
     );

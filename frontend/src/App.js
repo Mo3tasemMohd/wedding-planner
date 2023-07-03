@@ -8,6 +8,7 @@ import { ProviderService } from './pages/provider/providerServices';
 import { CustomerService } from './pages/customer/customerServices';
 import ServiceForm from './pages/provider/ServiceForm';
 import { Mynav } from './pages/customer/Mynav';
+import { ServiceDetails } from './pages/customer/ServiceDetails';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
 
         {/* Customer routes */}
         <Route path='/customer/services' element={<CustomerService />} />
+        <Route path='/customer/services/:id' element={<ServiceDetails />} />
+        <Route path='/provider/services/:id' element={<ServiceDetails />} />
 
         {/* Provider routes */}
         <Route path='/provider/services' element={<ProviderService />} />
@@ -29,7 +32,8 @@ function App() {
         {/* <Route path='/provider/services/:id' element={<ServiceDetails />} /> */}
         <Route path='/provider/services/:id/edit' element={<ServiceForm />} />
 
-        <Route path='//' element={<NotFound />} />
+        <Route path='*' element={<NotFound />} />
+        <Route path='/not_found' element={<NotFound />} />
       </Routes>
     </div>
   );

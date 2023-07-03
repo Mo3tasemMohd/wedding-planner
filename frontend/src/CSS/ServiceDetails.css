@@ -1,0 +1,40 @@
+.img-details {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 40px;
+}
+
+body {
+    background-image: url("https://images.pexels.com/photos/265856/pexels-photo-265856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.row {
+    position: relative;
+}
+
+.row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.5;
+    z-index: -1;
+    border-radius: 40px;
+}
+
+
+.rate-part {
+    
+}
+
+.rate-view {
+    background-color: white;
+
+}
+
