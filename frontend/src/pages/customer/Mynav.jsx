@@ -9,13 +9,13 @@ export  function Mynav() {
 <div className=' parent body text-align-center'>
   <Navbar className='nav' expand="md" sticky="top"   >
 
-      <Navbar.Brand href="#home">
+      <Navbar.Brand href="home">
         <img className='logo2' src={logo2} alt="Logo"></img>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center ">
         <Nav className="navtext ms-auto">
-          <Nav.Link className='home'   href="#home">Home</Nav.Link>
+          <Nav.Link className='home'   href="home">Home</Nav.Link>
           <Nav.Link className='service' href="#features">Services</Nav.Link>
         </Nav>
       </Navbar.Collapse>

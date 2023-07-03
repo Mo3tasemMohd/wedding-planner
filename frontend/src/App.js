@@ -5,6 +5,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Home } from './pages/customer/Home';
 import { ProviderService } from './pages/provider/providerServices';
+import { CustomerService } from './pages/customer/customerServices';
 import ServiceForm from './pages/provider/ServiceForm';
 import { Mynav } from './pages/customer/Mynav';
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/home' element={<Home />} />
 
         {/* Customer routes */}
+        <Route path='/customer/services' element={<CustomerService />} />
 
         {/* Provider routes */}
         <Route path='/provider/services' element={<ProviderService />} />

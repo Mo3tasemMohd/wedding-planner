@@ -39,7 +39,8 @@ export function Register() {
         username: data.Username,
         password: data.Password,
         email: data.Email,
-        customer_phone: data.PhoneNumber
+        customer_phone: data.PhoneNumber,
+        is_provider: data.isProvider
       })
       .then((res) => {
         localStorage.setItem("token", res.data.access);
@@ -53,7 +54,7 @@ export function Register() {
   };
 
   return (
-    <div className="container pt-3  w-50" style={{ height: "90vh", position: 'relative', top: '200px' }}>
+    <div className="container pt-3  w-50" style={{ position: "relative", top: "200px", height: "80vh" }}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h2 className="font-bold text-2xl text-center mb-4">Register</h2>
 
@@ -118,6 +119,19 @@ export function Register() {
           />
           <Form.Control.Feedback type="invalid">
             {errors.ConfirmPassword?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicIsProvider">
+          <Form.Label>Register as a Provider User</Form.Label>
+          <Form.Check
+            type="checkbox"
+            {...register("isProvider")}
+            isInvalid={!!errors.isProvider}
+          />
+
+          <Form.Control.Feedback type="invalid">
+            {errors.IsProvider?.message}
           </Form.Control.Feedback>
         </Form.Group>
 

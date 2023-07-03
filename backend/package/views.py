@@ -66,7 +66,6 @@ def CustomerPackageServices(request):
 # @permission_classes([IsAuthenticated, IsNotProvider])
 @permission_classes([IsNotProvider]) #For Test
 def AddToPackage(request):
-  
     Current_customer_user = request.user
     service = get_object_or_404(Service, id=request.data['services'])
     try:

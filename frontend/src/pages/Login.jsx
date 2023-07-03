@@ -25,14 +25,28 @@ export function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
+
     axios
       .post(`${BASE_URL}/customer/api/token/`, {
         username: data.Username,
         password: data.Password,
+        // is_provider: data.isProvider
       })
       .then((res) => {
         localStorage.setItem('token', res.data.access);
         setError('');
+        console.log(res.data.access)
+        const response = axios.get(`${BASE_URL}/customer/get-customer/`
+          , {
+            headers: {
+              'Authorization': `Bearer ${res.data.access}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        ).then((user) => {
+          localStorage.setItem('isProvider', user.data.is_provider);
+        })
+
         navigate('/home');
       })
       .catch((err) => {
@@ -41,7 +55,7 @@ export function Login() {
   };
 
   return (
-    <div className="container pt-3 mt-5 w-50" style={{ height: '90vh' }}>
+    <div className="container pt-3 mt-5 w-50" style={{ position: "relative", top: "200px", height: "80vh" }}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Username</Form.Label>
@@ -68,6 +82,17 @@ export function Login() {
             {errors.Password?.message}
           </Form.Control.Feedback>
         </Form.Group>
+
+        {/* <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Control
+            type="checkbox"
+            {...register('IsProvider')}
+            isInvalid={!!errors.Username}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.Username?.message}
+          </Form.Control.Feedback>
+        </Form.Group> */}
 
         <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
 
