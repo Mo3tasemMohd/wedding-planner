@@ -4,3 +4,7 @@ npm install yup
 npm i react-hook-form
 npm i @hookform/resolvers
 npm i axios
+
+_________________________________________
+
+npm install react-datepickers

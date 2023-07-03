@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status,generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from customer import models
+from package.models import Package
 
 
 # Create your views here.
@@ -30,6 +31,8 @@ def register(request):
                 'customer': serializer.data,
                 'tokens': tokens,
             }
+            customer=models.Customer.objects.get(username=request.data['username'])
+            Package.objects.create(customer_user=customer, package_price=0)
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

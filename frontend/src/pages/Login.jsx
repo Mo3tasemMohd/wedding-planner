@@ -36,7 +36,8 @@ export function Login() {
         navigate('/home');
       })
       .catch((err) => {
-        setError(err.response.data.detail);
+        console.log("login failed!")
+        setError("Invalid username or password!");
       });
   };
 

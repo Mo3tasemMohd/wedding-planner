@@ -100,7 +100,8 @@ def DeleteFromPackage(request):
 
 @api_view(['POST'])
 def test(request):
-    ds = request.data['service']
+    ds = request.data
     # ds = ServiceSerializer(d)
     print(request.user)
-    return Response(data= ds, status=status.HTTP_200_OK)
+    print(ds)
+    return Response(data=ds, status=status.HTTP_200_OK)

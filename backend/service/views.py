@@ -183,12 +183,16 @@ def deleteService(request, id):
 @permission_classes([IsAuthenticated])
 def addReservedDates(request):
     reserved = request.data
+    print(reserved)
     serialized_reserved = ReservedDatesSerializer(data=reserved)
     if serialized_reserved.is_valid():
+        print("____________________________\n" + str(serialized_reserved) + "____________________________\n")
         serialized_reserved.save()
+        print("=======================\n" + str(serialized_reserved.data) +"=======================\n")
         return Response(serialized_reserved.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized_reserved.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
