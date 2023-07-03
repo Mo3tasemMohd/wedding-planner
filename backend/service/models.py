@@ -1,14 +1,11 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser
-from django.contrib.postgres.fields import ArrayField
-from service_provider.models import ServiceProvider
+from django.core.validators import MaxValueValidator, MinValueValidator
 from customer.models import Customer
 # class ServiceCategory(models.Model):
 #     service_category_name = models.CharField(max_length=50)
 #     def __str__(self):
 #         return self.service_category_name
-
 class Service(models.Model):
     serviceCategories = [
         ('Hall-Reservation', 'Hall-Reservation'),
@@ -44,3 +41,15 @@ class ReservedDates(models.Model):
         return f"{self.service_reserved.service_service_category} {self.service_reserved.id} {' Reserved Dates'}"
     # class Meta:
     #     verbose_name_plural = 'ReservedDates'
+    
+
+class ServiceRate(models.Model):
+    service_rate=models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    service_rated=models.ForeignKey(Service, null=False, on_delete=models.CASCADE)
+    customer_user=models.ForeignKey(Customer, null=False, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return f"{self.service_rated.service_service_category} {self.service_rated.id} {' Rate'}"
+
+

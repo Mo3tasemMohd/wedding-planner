@@ -2,7 +2,7 @@ from rest_framework import serializers
 from datetime import date
 
 #from backend.service.models import Service
-from .models import Service, ServiceImage, ReservedDates#, ServiceCategory
+from .models import Service, ServiceImage, ReservedDates, ServiceRate #, ServiceCategory
 
 
 # class ServiceSerializer(serializers.ModelSerializer):
@@ -39,9 +39,6 @@ class ServiceSerializer(serializers.ModelSerializer):
     #     allow_empty=True,
     #     required=False
     # )
-
-
-        
         
 class ReservedDatesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,3 +49,11 @@ class ReservedDatesSerializer(serializers.ModelSerializer):
         if value < date.today():
             raise serializers.ValidationError("Date reserved cannot be in the past.")
         return value
+
+class ServiceRateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceRate
+        fields = '__all__'
+
+
+          
