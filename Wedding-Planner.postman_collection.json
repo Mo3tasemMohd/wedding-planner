@@ -808,6 +808,88 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "ServiceRate",
+			"item": [
+				{
+					"name": "Add Service Rate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "service_rated",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "customer_user",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "service_rate",
+									"value": "6",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/rate/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"rate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Service Rates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/service/10/view-rate/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"service",
+								"10",
+								"view-rate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Service Statistics",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

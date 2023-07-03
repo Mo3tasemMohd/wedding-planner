@@ -14,23 +14,28 @@ from rest_framework.permissions import AllowAny
 
 
 from django.db.models import Prefetch
+from django.db.models import Count
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import MultiPartParser, FileUploadParser, FormParser
 from rest_framework.views import APIView
 from django.middleware.csrf import get_token
 
 from project.permissions import IsProvider, IsNotProvider
+from customer.models import Customer
+from customer.serializers import CustomerSerializer
 
 from .models import (
     Service,
     ServiceImage,
     ReservedDates,
+    ServiceRate,
     #ServiceCategory
 )
 from .serializers import (
     ServiceSerializer,
     ServiceImageSerializer,
     ReservedDatesSerializer,
+    ServiceRateSerializer,
     #ServiceCategorySerializer,
 )
 
@@ -205,6 +210,54 @@ def deleteReservedDates(request, reserved_date_id):
     try:
         reserved_date = ReservedDates.objects.get(id=reserved_date_id)
         reserved_date.delete()
-        return Response(status=status.HTTP_200_OK)
+        return Response("{} is deleted".format(reserved_date), status=status.HTTP_200_OK)
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
+@api_view(["POST"])
+@permission_classes([IsNotProvider]) 
+def AddServiceRate(request):
+  
+    service = get_object_or_404(Service, id=request.data['service_rated'])
+    serializered_rate = ServiceRateSerializer(data=request.data)
+    if serializered_rate.is_valid():
+        serializered_rate.save(service_rated=service, customer_user=request.user)
+        return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
+    return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(["POST"]) #For Test Without Authentication
+# def AddServiceRate(request):
+  
+#     service = get_object_or_404(Service, id=request.data['service_rated'])
+#     customer = get_object_or_404(Customer, id=request.data['customer_user'])
+#     serializered_rate = ServiceRateSerializer(data=request.data)
+#     if serializered_rate.is_valid():
+#         serializered_rate.save(service_rated=service, customer_user=customer)
+#         return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
+#     return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def viewServiceRate(request, service_id):
+    try:
+        service = Service.objects.get(id=service_id)
+    except Service.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    servicerates = ServiceRate.objects.filter(service_rated=service)
+    serializered_rate = ServiceRateSerializer(servicerates, many=True)
+    return Response(serializered_rate.data)
+
+
+@api_view(['GET'])
+def viewServiceStatistics(request, service_id):
+    try:
+        service = Service.objects.get(id=service_id)
+    except Service.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    servicerates = ServiceRate.objects.filter(service_rated=service).values('service_rate').annotate(customersNum=Count('service_rate'))
+    return Response(servicerates)
+
+
