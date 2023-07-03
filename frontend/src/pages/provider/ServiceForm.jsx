@@ -106,7 +106,7 @@ export default function ServiceForm() {
                 <Form.Group className="mb-4 fs-5" controlId="formBasicEmail">
                     <Form.Label>Service Category</Form.Label>
                     <Form.Control
-                        className='form-control-with-shadow '
+                        className='form-control-with-shadow1 '
                         required
                         as="select"
                         onChange={operationHandler}
@@ -124,7 +124,7 @@ export default function ServiceForm() {
                 <Form.Group className="mb-4 fs-5" controlId="formBasicPassword">
                     <Form.Label>Price</Form.Label>
                     <Form.Control
-                        className='form-control-with-shadow '
+                        className='form-control-with-shadow1 '
                         required
                         onChange={operationHandler}
                         name="service_price"
@@ -140,7 +140,7 @@ export default function ServiceForm() {
                 <Form.Group className="mb-4 fs-5" controlId="formBasicPassword">
                     <Form.Label>Description</Form.Label>
                     <Form.Control
-                        className='form-control-with-shadow '
+                        className='form-control-with-shadowDesc'
                         required
                         onChange={operationHandler}
                         name="service_description"
@@ -155,7 +155,7 @@ export default function ServiceForm() {
                 <Form.Group className="mb-4 fs-5" controlId="formBasicPassword">
                     <Form.Label>Location</Form.Label>
                     <Form.Control
-                        className='form-control-with-shadow '
+                        className='form-control-with-shadow2 '
                         required
                         as="select"
                         onChange={operationHandler}
@@ -173,7 +173,7 @@ export default function ServiceForm() {
                 <Form.Group controlId="formFileMultiple" className="mb-4 fs-5">
                     <Form.Label>Images</Form.Label>
                     <Form.Control
-                        className='form-control-with-shadow '
+                        className='form-control-with-shadow2 '
                         required={id === '0'}
                         type="file"
                         name="images"
@@ -182,7 +182,7 @@ export default function ServiceForm() {
                     />
                 </Form.Group>
 
-                <Button type="submit">
+                <Button className="serviceBtn" type="submit">
                     {id === '0' ? 'Add' : 'Update'}
                 </Button>
             </Form>
