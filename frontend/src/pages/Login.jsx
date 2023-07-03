@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const schema = Yup.object().shape({
   Username: Yup.string().required('Username is required'),
   Password: Yup.string().required('Password is required'),
@@ -55,8 +56,9 @@ export function Login() {
   };
 
   return (
-    <div className="container pt-3 mt-5 w-50" style={{ position: "relative", top: "200px", height: "80vh" }}>
+    <div className="container pt-3 mt-5 w-50" style={{ position: "relative", top: "3rem",backgroundImage:{} }}>
       <Form onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="font-bold text-2xl text-center mb-4">Login</h2>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Username</Form.Label>
           <Form.Control

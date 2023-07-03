@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
+import { BASE_URL } from "../../config/dataService";
 
 import logo2 from '../../media/home/logo2.png'
 import navlogo2 from '../../media/home/navlogo2.png'
-import '../../css/mynav.css'
+import '../../CSS/mynav.css'
+import axios from 'axios'
+
+
+
 export  function Mynav() {
+
   return (
 <div className=' parent body text-align-center'>
   <Navbar className='nav' expand="md" sticky="top"   >

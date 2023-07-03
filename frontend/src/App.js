@@ -8,20 +8,25 @@ import { ProviderService } from './pages/provider/providerServices';
 import { CustomerService } from './pages/customer/customerServices';
 import ServiceForm from './pages/provider/ServiceForm';
 import { Mynav } from './pages/customer/Mynav';
+import { useLocation } from 'react-router-dom';
 
 function App() {
+  const location = useLocation();
+
+  
+  const isAuthRoute = location.pathname === '/login' || location.pathname === '/register';
   return (
     <div className="App">
-      <Mynav/>
+      {!isAuthRoute && <Mynav/>}
       <Routes>
         {/* Authentication routes */}
-        <Route path='' element={<Login />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/home' element={<Home />} />
 
         {/* Customer routes */}
         <Route path='/customer/services' element={<CustomerService />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='' element={<Home />} />
 
         {/* Provider routes */}
         <Route path='/provider/services' element={<ProviderService />} />
