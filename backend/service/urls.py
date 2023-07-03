@@ -21,7 +21,12 @@ urlpatterns = [
     
     path('add-service-reserveddate/', views.addReservedDates),
     path('<int:service_id>/reserveddates', views.getReservedDates),
-    path('<int:reserved_date_id>/reserveddates/', views.deleteReservedDates)
+    path('<int:reserved_date_id>/reserveddates/', views.deleteReservedDates),
+    
+    path('rate/', views.AddServiceRate),
+    path('<int:service_id>/view-rate/', views.viewServiceRate),
+    path('<int:service_id>/view-stat/', views.viewServiceStatistics),
+
     
     
 ]

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from service.models import Service, ServiceImage,ReservedDates #,ServiceCategory
+from service.models import Service, ServiceImage,ReservedDates, ServiceRate #,ServiceCategory
 #from .forms import ServiceAdminForm
 
 
@@ -14,3 +14,4 @@ class ServiceAdmin(admin.ModelAdmin):
 #admin.site.register(Service)
 #admin.site.register(ServiceCategory)
 admin.site.register(ReservedDates)
+admin.site.register(ServiceRate)
