@@ -11,7 +11,7 @@ import { Mynav } from './pages/customer/Mynav';
 function App() {
   return (
     <div className="App">
-      <Mynav/>
+      <Mynav />
       <Routes>
         {/* Authentication routes */}
         <Route path='' element={<Login />} />
@@ -27,7 +27,8 @@ function App() {
         {/* <Route path='/provider/services/:id' element={<ServiceDetails />} /> */}
         <Route path='/provider/services/:id/edit' element={<ServiceForm />} />
 
-        <Route path='//' element={<NotFound />} />
+        <Route path='*' element={<NotFound />} />
+        <Route path='/not_found' element={<NotFound />} />
       </Routes>
     </div>
   );

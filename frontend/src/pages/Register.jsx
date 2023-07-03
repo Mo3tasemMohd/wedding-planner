@@ -48,12 +48,12 @@ export function Register() {
       })
       .catch((err) => {
         setError(err.response.data.detail);
-        
+
       });
   };
 
   return (
-    <div className="container pt-3 mt-5 w-50" style={{ height: "90vh" }}>
+    <div className="container pt-3  w-50" style={{ height: "90vh", position: 'relative', top: '200px' }}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h2 className="font-bold text-2xl text-center mb-4">Register</h2>
 

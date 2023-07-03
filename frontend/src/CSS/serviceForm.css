@@ -1,0 +1,38 @@
+body {
+    /* background-image: url(../../public/rings.jpg); */
+    background-image: linear-gradient(180deg, #ecd5dd 0%, #b5dfdea8 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.form_container {
+    text-align: left;
+    position: relative;
+    top: 200px;
+
+    border-radius: 30px;
+    /* max-width: 70% !important; */
+    background-image: linear-gradient(180deg, #d087a2 0%, #69b3b2a8 100%);
+    /* background-image: linear-gradient(180deg, #c094a4 0%, #76a3a3a8 100%); */
+}
+
+
+/* 
+.serviceBtn {
+    background: #0F2027;
+    
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
+    
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+}
+*/
+
+.form-control-with-shadow {
+    box-shadow: 2px 2px 2px 2px rgba(127, 239, 235, 0.721);
+    font-weight: 'bold';
+}
+
+.form-control-with-shadow:hover {
+    box-shadow: 2px 2px 2px 2px rgba(236, 101, 213, 0.33) inset;
+}
