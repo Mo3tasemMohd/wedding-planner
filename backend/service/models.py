@@ -29,7 +29,8 @@ class Service(models.Model):
     #service_images=ArrayField(models.ImageField(upload_to='media/service_images'), blank=True)
     
     def __str__(self):
-        return f"{self.service_service_category} {self.service_provider.id}"
+        # return f"{self.service_service_category} {self.service_provider.id}"
+        return f"{self.service_service_category} - {self.service_provider.id}"
 
 class ServiceImage(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='images')

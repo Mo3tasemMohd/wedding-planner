@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
+
+
+/* _________________________ assem uses these styles ___________________________ */
+
+img.caro{
+    height: 500px;
+    width: 800px;
+    object-fit: cover;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.containImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    /* overflow: hidden; */
+}
+.imgInner img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.cardInner{
+    background-color: green;
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+    top: 0%;
+}
+.imgInner{
+    background-color: green;
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+    top: 0%;
+    left: 0%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.cardImg{
+    height: 200px;
+    width: 200px;
+    padding: 10px;
+    
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+/* .cardImg::after{
+    height: 100%;
+    top: 100%;
+    background-color: aqua;
+    color: black;
+} */
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

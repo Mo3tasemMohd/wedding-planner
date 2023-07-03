@@ -98,3 +98,9 @@ def DeleteFromPackage(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+def test(request):
+    ds = request.data['service']
+    # ds = ServiceSerializer(d)
+    print(request.user)
+    return Response(data= ds, status=status.HTTP_200_OK)

@@ -7,11 +7,13 @@ import { Home } from './pages/customer/Home';
 import { ProviderService } from './pages/provider/providerServices';
 import ServiceForm from './pages/provider/ServiceForm';
 import { Mynav } from './pages/customer/Mynav';
+import { CustomerCardsContainer } from './components/CustomerCardsContainer';
 
 function App() {
   return (
     <div className="App">
-      <Mynav/>
+      {/* <Mynav/> */}
+      <CustomerCardsContainer />
       <Routes>
         {/* Authentication routes */}
         <Route path='' element={<Login />} />

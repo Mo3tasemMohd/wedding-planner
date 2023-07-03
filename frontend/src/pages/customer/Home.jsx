@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../../css/home.css'
+import '../../CSS/home.css'
 import Hall from '../../media/home/Hall.jpg'
 import Cars from '../../media/home/Cars.jpg'
 import Photosessions from '../../media/home/Photosessions.jpg'
 import Makeup from '../../media/home/Makeup.jpg'
-import bg1 from '../../media/home/bg1.jpg'
+import bg1 from '../../media/home/bg1.png'
 import { Card, Button, Col, Row, Container } from 'react-bootstrap';
 
 
