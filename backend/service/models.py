@@ -34,12 +34,13 @@ class ServiceImage(models.Model):
     image = models.ImageField(upload_to='media/service_images')
 
 class ReservedDates(models.Model):
+    # user_reserved = models.ForeignKey(Customer, null=False)
     service_reserved = models.ForeignKey(Service, null=False, on_delete=models.CASCADE)
     date_reserved = models.DateField(max_length=20)
     slot_reserved = models.IntegerField(null=True)
     
-    # def __str__(self):
-    #     return f"{self.service_reserved.service_service_category} {self.service_reserved.id} {' Reserved Dates'}"
+    def __str__(self):
+        return f"{self.service_reserved.service_service_category} {self.service_reserved.id} {' Reserved Dates'}"
     # class Meta:
     #     verbose_name_plural = 'ReservedDates'
     

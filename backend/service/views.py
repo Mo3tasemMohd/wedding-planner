@@ -186,9 +186,9 @@ def addReservedDates(request):
     print(reserved)
     serialized_reserved = ReservedDatesSerializer(data=reserved)
     if serialized_reserved.is_valid():
-        print("____________________________\n" + str(serialized_reserved) + "____________________________\n")
+        # print("____________________________\n" + str(serialized_reserved) + "\n____________________________")
         serialized_reserved.save()
-        print("=======================\n" + str(serialized_reserved.data) +"=======================\n")
+        # print("=======================\n" + str(serialized_reserved.data) +"\n=======================")
         return Response(serialized_reserved.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized_reserved.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -209,10 +209,14 @@ def getReservedDates(request, service_id):
         return Response({"Error - This Service Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(["DELETE"])
+# @permission_classes([IsAuthenticated])
+# def deleteReservedDates(request, service_id):
 @permission_classes([IsProvider])
 def deleteReservedDates(request, reserved_date_id):
     try:
         reserved_date = ReservedDates.objects.get(id=reserved_date_id)
+        # reserved_date = ReservedDates.objects.filter(service_reserved=service_id, user_id=request.user)
+        # ________any customer can only have one reservation for each service________
         reserved_date.delete()
         return Response("{} is deleted".format(reserved_date), status=status.HTTP_200_OK)
     except:

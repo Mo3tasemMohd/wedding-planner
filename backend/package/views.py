@@ -68,9 +68,12 @@ def CustomerPackageServices(request):
 def AddToPackage(request):
   
     Current_customer_user = request.user
+    print("=======================\n" + str(Current_customer_user) +"\n=======================")
     service = get_object_or_404(Service, id=request.data['services'])
+    print("=======================\nService: " + str(service) +"\n=======================")
     try:
         package = Package.objects.get(customer_user=Current_customer_user)
+        print("=======================\nPackage: " + str(package) +"\n=======================")
         package.services.add(service)
         package.package_price = sum(service.service_price for service in package.services.all())
         package.save()
