@@ -215,27 +215,37 @@ def deleteReservedDates(request, reserved_date_id):
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
     
-@api_view(["POST"])
-@permission_classes([IsNotProvider]) 
-def AddServiceRate(request):
-  
-    service = get_object_or_404(Service, id=request.data['service_rated'])
-    serializered_rate = ServiceRateSerializer(data=request.data)
-    if serializered_rate.is_valid():
-        serializered_rate.save(service_rated=service, customer_user=request.user)
-        return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
-    return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(["POST"]) #For Test Without Authentication
+# @api_view(["POST"])
+# @permission_classes([IsNotProvider]) 
 # def AddServiceRate(request):
-  
+#     print(request)
 #     service = get_object_or_404(Service, id=request.data['service_rated'])
-#     customer = get_object_or_404(Customer, id=request.data['customer_user'])
+#     print(service)
+#     print(service.id)
+
 #     serializered_rate = ServiceRateSerializer(data=request.data)
+#     print(serializered_rate)
+
 #     if serializered_rate.is_valid():
-#         serializered_rate.save(service_rated=service, customer_user=customer)
+#         print("valid")
+#         serializered_rate.save(service_rated=service, customer_user=request.user)
 #         return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
 #     return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
+@permission_classes([IsNotProvider]) 
+
+@api_view(["POST"]) #For Test Without Authentication
+def AddServiceRate(request):
+
+    rate_data= request.data
+    customer = get_object_or_404(Customer, id=request.user.id)
+    rate_data['customer_user'] = customer.id
+    service = get_object_or_404(Service, id=request.data['service_rated'])
+    serializered_rate = ServiceRateSerializer(data=rate_data)
+
+    if serializered_rate.is_valid():
+        serializered_rate.save(service_rated=service, customer_user=customer)
+        return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
+    return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def viewServiceRate(request, service_id):
@@ -250,7 +260,7 @@ def viewServiceRate(request, service_id):
 
 
 @api_view(['GET'])
-def viewServiceStatistics(request, service_id):
+def viewServiceStatistics(request, service_id):   
     try:
         service = Service.objects.get(id=service_id)
     except Service.DoesNotExist:
