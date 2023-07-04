@@ -13,6 +13,7 @@ import AuthContext, { UserContext } from "./context/UserContext";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "./config/dataService";
+import { ServiceDetails } from './pages/customer/ServiceDetails';
 
 function App() {
   const location = useLocation();
@@ -60,6 +61,8 @@ function App() {
           {(user && !user.is_provider)&& (
             <>
               <Route path="/customer/services" element={<CustomerService />} />
+        <Route path='/customer/services/:id' element={<ServiceDetails />} />
+        <Route path='/provider/services/:id' element={<ServiceDetails />} />
 
               {/* Provider routes */}
               <Route path="/provider/services" element={<ProviderService />} />

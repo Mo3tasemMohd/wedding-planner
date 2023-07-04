@@ -14,23 +14,28 @@ from rest_framework.permissions import AllowAny
 
 
 from django.db.models import Prefetch
+from django.db.models import Count
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import MultiPartParser, FileUploadParser, FormParser
 from rest_framework.views import APIView
 from django.middleware.csrf import get_token
 
 from project.permissions import IsProvider, IsNotProvider
+from customer.models import Customer
+from customer.serializers import CustomerSerializer
 
 from .models import (
     Service,
     ServiceImage,
     ReservedDates,
+    ServiceRate,
     #ServiceCategory
 )
 from .serializers import (
     ServiceSerializer,
     ServiceImageSerializer,
     ReservedDatesSerializer,
+    ServiceRateSerializer,
     #ServiceCategorySerializer,
 )
 
@@ -205,6 +210,83 @@ def deleteReservedDates(request, reserved_date_id):
     try:
         reserved_date = ReservedDates.objects.get(id=reserved_date_id)
         reserved_date.delete()
-        return Response(status=status.HTTP_200_OK)
+        return Response("{} is deleted".format(reserved_date), status=status.HTTP_200_OK)
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+    
+# @api_view(["POST"])
+# @permission_classes([IsNotProvider]) 
+# def AddServiceRate(request):
+#     print(request)
+#     service = get_object_or_404(Service, id=request.data['service_rated'])
+#     print(service)
+#     print(service.id)
+
+#     serializered_rate = ServiceRateSerializer(data=request.data)
+#     print(serializered_rate)
+
+#     if serializered_rate.is_valid():
+#         print("valid")
+#         serializered_rate.save(service_rated=service, customer_user=request.user)
+#         return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
+#     return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@permission_classes([IsNotProvider])
+@api_view(["POST", "PUT"] )
+def AddServiceRate(request):
+    rate_data= request.data
+    customer = get_object_or_404(Customer, id=request.user.id)
+    rate_data['customer_user'] = customer.id
+    service = get_object_or_404(Service, id=request.data['service_rated'])
+    service_rate = ServiceRate.objects.filter(customer_user=customer, service_rated=service).first()
+    if service_rate == None:
+        serializered_rate = ServiceRateSerializer(data=rate_data)
+
+    else:
+        serializered_rate = ServiceRateSerializer(service_rate, data=rate_data, partial=True)
+
+    if serializered_rate.is_valid():
+        serializered_rate.save(service_rated=service, customer_user=customer)
+        return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
+    return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(["GET"])
+@permission_classes([IsNotProvider]) 
+def check_service_rate(request, service_id):
+    customer = request.user.id
+    service = get_object_or_404(Service, id=service_id)
+
+    # Check if the user has already submitted a rate for this service
+    existing_rate = ServiceRate.objects.filter(customer_user=customer, service_rated=service).first()
+    if existing_rate:
+        return Response({'rated': True, 'rate_value': existing_rate.service_rate})
+    else:
+        return Response({'rated': False})
+
+@api_view(['GET'])
+def viewServiceRate(request, service_id):
+    try:
+        service = Service.objects.get(id=service_id)
+    except Service.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    servicerates = ServiceRate.objects.filter(service_rated=service)
+    serializered_rate = ServiceRateSerializer(servicerates, many=True)
+    return Response(serializered_rate.data)
+
+
+@api_view(['GET'])
+def viewServiceStatistics(request, service_id):   
+    try:
+        service = Service.objects.get(id=service_id)
+    except Service.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    servicerates = ServiceRate.objects.filter(service_rated=service).values('service_rate').annotate(customersNum=Count('service_rate'))
+    return Response(servicerates)
+
+

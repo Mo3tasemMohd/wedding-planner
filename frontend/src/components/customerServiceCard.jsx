@@ -67,15 +67,10 @@ export function CustomerServiceCard(props) {
                         </div>
                         <div className="row my-4">
                             <div className="text-start col-5">
-                                <NavLink to='' className='cartcardbtn mb-5'>
-                                    View
-                                </NavLink>
+                                <NavLink to={`/provider/services/${service.id}`} className='cartcardbtn mb-5'>
+                                Details</NavLink>
                             </div>
-                            <div className="text-start col-5">
-                                <NavLink to='' className='cartcardbtn mb-5'>
-                                    Rate
-                                </NavLink>
-                            </div>
+  
                         </div>
 
                     </div>
