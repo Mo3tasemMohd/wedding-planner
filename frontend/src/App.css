@@ -1,3 +1,24 @@
+#root {
+  background-image: linear-gradient(180deg, #ecd5dd 0%, #b5dfdea8 100%);
+  min-height: 1000px;
+}
+
+/* .provider-services {
+  background-image: url('../../public/rings.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+} */
+
+body {
+  /* background-image: url(../../public/rings.jpg); */
+  background-size: cover;
+  min-height: 1000px;
+  background-image: linear-gradient(180deg, #ecd5dd 0%, #b5dfdea8 100%);
+
+}
+
 .App {
   text-align: center;
 }
@@ -32,6 +53,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

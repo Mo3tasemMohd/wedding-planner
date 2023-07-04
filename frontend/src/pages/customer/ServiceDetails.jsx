@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Carousel, Image } from 'react-bootstrap';
+import { useNavigate, useParams, NavLink } from 'react-router-dom';
+import { Carousel, Image, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 import '../../css/ServiceDetails.css';
 import '../../css/providerServices.css';
@@ -10,13 +10,11 @@ import { calcRate } from '../../js/rate';
 
 export function ServiceDetails() {
     let isProvider = false;
-
-
-
-
     let { id } = useParams();
     let navigate = useNavigate();
     const [index, setIndex] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+
 
     const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex);
@@ -37,6 +35,26 @@ export function ServiceDetails() {
         }
     };
 
+    let deleteService = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+            const response = await axios.delete(`http://localhost:8000/service/delete-service/${id}/`, { headers });
+            setShowModal(false)
+            console.log(response.data);
+            navigate('/provider/services');
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    const handleDelete = () => {
+        setShowModal(true);
+    };
+
+
     useEffect(() => {
         getServiceData();
     }, []);
@@ -45,9 +63,10 @@ export function ServiceDetails() {
         navigate('/home');
     };
 
+
     let source = 'http://localhost:8000';
     return (
-        <div className=" p-4 mt-5 text-center ">
+        <div className=" p-4 text-center containerDiv ">
             <div className="row mt-5 p-4">
                 <div className="col-6 cont2">
                     <div className="border-4">
@@ -67,7 +86,6 @@ export function ServiceDetails() {
                             <h1 className=" mb-1 me-4">{service.service_service_category}</h1>
                             <span className=" mt-4">
                                 <span className="d-flex align-items-end">
-                                    {console.log(serviceRate)}
                                     {serviceRate !== null && <RateStars rating={serviceRate} className="mt-2" />} {/* Display RateStars only when serviceRate is not null */}
                                 </span>
                             </span>
@@ -84,24 +102,45 @@ export function ServiceDetails() {
                             <div className="text-output-area">{service.service_description}</div>
                         </div>
                         <p className="my-3 fs-4 col-sm-12 col-md-12">{service.decription}</p>
-                        {isProvider && <div className="my-3 col-sm-12 col-md-12">
-                            <button className="btn btn-warning col-4 ms-5 fs-5 ">Edit</button>
-                            <button className="btn btn-danger col-4 mx-5 fs-5">Delete</button>
-                        </div>}
+                        <div className="my-3 col-sm-12 col-md-12">
+                            <NavLink to={`/provider/services/${service.id}/edit`} className='btn mb-5 col-2 mx-4 fs-5 bg-warning'>
+                                Edit
+                            </NavLink>
+                            <NavLink onClick={handleDelete} className='btn mb-5 col-2 ms-4 fs-5 text-light bg-danger'>
+                                Delete
+                            </NavLink>
+                            {/* <button  className="btn btn-danger col-4 mx-5 fs-5">
+                                Delete
+                            </button> */}
+                            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Confirm Delete</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Are you sure you want to delete this service?</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="danger" onClick={deleteService}>
+                                        Delete
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </div>
                     </div>
                 </div>
                 <div className='rate-part p-5'>
                     <div className='rate-view'>
-                        
+
                         <div>
                             <h2>Customers Reviews</h2>
                             <span>
-                                                            {serviceRate !== null && <RateStars rating={serviceRate} className="mt-2" />} {/* Display RateStars only when serviceRate is not null */}
+                                {serviceRate !== null && <RateStars rating={serviceRate} className="mt-2" />} {/* Display RateStars only when serviceRate is not null */}
 
                             </span>
                             <span></span>
                         </div>
-<div>
+                        <div>
                             Rate This Services
                         </div>
                     </div>
@@ -113,6 +152,6 @@ export function ServiceDetails() {
                     Back to Halls
                 </button>
             </div>
-        </div>
+        </div >
     );
 }

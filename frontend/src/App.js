@@ -6,6 +6,7 @@ import { Register } from './pages/Register';
 import { Home } from './pages/customer/Home';
 import { ProviderService } from './pages/provider/providerServices';
 import { CustomerService } from './pages/customer/customerServices';
+import { AboutUs } from './pages/customer/AboutUs';
 import ServiceForm from './pages/provider/ServiceForm';
 import { Mynav } from './pages/customer/Mynav';
 import { ServiceDetails } from './pages/customer/ServiceDetails';
@@ -31,6 +32,8 @@ function App() {
 
         {/* <Route path='/provider/services/:id' element={<ServiceDetails />} /> */}
         <Route path='/provider/services/:id/edit' element={<ServiceForm />} />
+
+        <Route path='/about' element={<AboutUs />} />
 
         <Route path='*' element={<NotFound />} />
         <Route path='/not_found' element={<NotFound />} />

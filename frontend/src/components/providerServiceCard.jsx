@@ -18,7 +18,6 @@ export function ProviderServiceCard(props) {
     };
 
 
-
     let source = "http://localhost:8000"
     return (
         <div className=' col-sm-12 col-12  mx-auto text-start '>
@@ -67,13 +66,8 @@ export function ProviderServiceCard(props) {
                         </div>
                         <div className="row my-4">
                             <div className="text-start col-5">
-                                <NavLink to='' className='cartcardbtn mb-5'>
-                                    Edit
-                                </NavLink>
-                            </div>
-                            <div className="text-start col-5">
-                                <NavLink to='' className='cartcardbtn mb-5'>
-                                    Delete
+                                <NavLink to={`/provider/services/${service.id}`} className='cartcardbtn mb-5'>
+                                    View
                                 </NavLink>
                             </div>
                         </div>

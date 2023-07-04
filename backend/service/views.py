@@ -43,7 +43,7 @@ from .serializers import (
 @api_view(["GET"])
 def showAllServices(request):
     paginator = PageNumberPagination()
-    paginator.page_size = 2
+    paginator.page_size = 10
     services = Service.objects.prefetch_related(Prefetch('images', queryset=ServiceImage.objects.all()))
     #services = Service.objects.all()
     

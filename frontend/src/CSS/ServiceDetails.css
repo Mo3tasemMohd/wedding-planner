@@ -5,10 +5,10 @@
     border-radius: 40px;
 }
 
-body {
-    background-image: url("https://images.pexels.com/photos/265856/pexels-photo-265856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-    background-repeat: no-repeat;
-    background-size: cover;
+
+.containerDiv {
+    position: relative;
+    top: 100px;
 }
 
 .row {
@@ -28,13 +28,12 @@ body {
     border-radius: 40px;
 }
 
-
+/* 
 .rate-part {
     
-}
+} */
 
 .rate-view {
     background-color: white;
 
 }
-

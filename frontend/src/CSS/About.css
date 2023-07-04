@@ -1,0 +1,56 @@
+.aboutImg {
+    object-fit: contain;
+    max-width: 60%;
+}
+
+.abtcontainer {
+    /* background: #2b5876; */
+    /*background: -webkit-linear-gradient(to right, #4e4376, #2b5876);
+    background: linear-gradient(to right, #4e4376, #2b5876); */
+    /* width: 100%; */
+    font-size: 1.2rem;
+    position: relative;
+    top: 150px;
+    background-image: linear-gradient(180deg, #ecd5dd 0%, #b5dfdea8 100%);
+    /* border-radius: 30px; */
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.textContainer h2 {
+    margin: 0;
+    letter-spacing: 0.2em;
+}
+
+.textContainer h2 span {
+    letter-spacing: normal;
+}
+
+/* .textContainer h2 {
+    margin: 0;
+} */
+
+.textContainer>.hh2 {
+    /* text-align: left; */
+    color: rgb(0, 0, 0);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: inline-block;
+}
+
+.textContainer span {
+    color: rgba(199, 37, 199, 0.705);
+    font-family: cursive;
+}
+
+
+/* .textContainer .thirdH2 {
+    color: rgba(199, 37, 199, 0.705);
+    font-family: cursive;
+} */
