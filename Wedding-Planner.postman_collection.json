@@ -688,6 +688,31 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Empty Package",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/package/14/empty-package/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"package",
+								"14",
+								"empty-package",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
