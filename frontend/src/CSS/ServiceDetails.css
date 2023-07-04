@@ -29,11 +29,9 @@ body {
 }
 
 
-.rate-part {}
-
 .rate-view {
     background-color: white;
-
+    padding: 1.5rem;
 }
 
 .star {
@@ -67,3 +65,46 @@ body {
     height: 100%;
     z-index: 3;
   }
+
+  .submit-button{
+    background-color: green;
+    color: white;
+  }
+
+
+  .green-button {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .green-button svg {
+    margin-right: 8px;
+  }
+  
+  .green-button-submitted {
+    background-color: lightgreen;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .green-button-submitted svg {
+    margin-right: 8px;
+  }
+  
+  /* Style the button when it is disabled */
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  

@@ -231,21 +231,41 @@ def deleteReservedDates(request, reserved_date_id):
 #         serializered_rate.save(service_rated=service, customer_user=request.user)
 #         return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
 #     return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
-@permission_classes([IsNotProvider]) 
 
-@api_view(["POST"]) #For Test Without Authentication
+@permission_classes([IsNotProvider])
+@api_view(["POST", "PUT"] )
 def AddServiceRate(request):
-
     rate_data= request.data
     customer = get_object_or_404(Customer, id=request.user.id)
     rate_data['customer_user'] = customer.id
     service = get_object_or_404(Service, id=request.data['service_rated'])
-    serializered_rate = ServiceRateSerializer(data=rate_data)
+    service_rate = ServiceRate.objects.filter(customer_user=customer, service_rated=service).first()
+    if service_rate == None:
+        serializered_rate = ServiceRateSerializer(data=rate_data)
+
+    else:
+        serializered_rate = ServiceRateSerializer(service_rate, data=rate_data, partial=True)
 
     if serializered_rate.is_valid():
         serializered_rate.save(service_rated=service, customer_user=customer)
         return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
     return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(["GET"])
+@permission_classes([IsNotProvider]) 
+def check_service_rate(request, service_id):
+    customer = request.user.id
+    service = get_object_or_404(Service, id=service_id)
+
+    # Check if the user has already submitted a rate for this service
+    existing_rate = ServiceRate.objects.filter(customer_user=customer, service_rated=service).first()
+    if existing_rate:
+        return Response({'rated': True, 'rate_value': existing_rate.service_rate})
+    else:
+        return Response({'rated': False})
 
 @api_view(['GET'])
 def viewServiceRate(request, service_id):
