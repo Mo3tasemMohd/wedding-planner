@@ -70,7 +70,7 @@ export function Home() {
     cardRefs.current.forEach((cardRef, index) => {
       timeoutId = setTimeout(() => {
         setVisibleCards(prevVisibleCards => [...prevVisibleCards, String(index + 1)]);
-      }, (index + 1) * 1500);
+      }, (index + 1) * 1000);
     });
 
     return () => {

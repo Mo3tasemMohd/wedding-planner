@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { BASE_URL } from "../config/dataService";
 import { useNavigate } from "react-router-dom";
+import logform1 from "../media/home/logform1.png"
 
 const schema = Yup.object().shape({
   Username: Yup.string().required("Username is required"),
@@ -54,103 +55,104 @@ export function Register() {
   };
 
   return (
-    <div className="container pt-3  w-50" style={{position:"relative",top:"200px" ,height: "80vh" }}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="font-bold text-2xl text-center mb-4">Register</h2>
-
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Email"
-            {...register("Email")}
-            isInvalid={!!errors.Email}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.Email?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-          <Form.Label>Phone Number</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Phone Number"
-            {...register("PhoneNumber")}
-            isInvalid={!!errors.PhoneNumber}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.PhoneNumber?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Username"
-            {...register("Username")}
-            isInvalid={!!errors.Username}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.Username?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            {...register("Password")}
-            isInvalid={!!errors.Password}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.Password?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type={showConfirmPassword ? "text" : "password"}
-            placeholder="Confirm Password"
-            {...register("ConfirmPassword")}
-            isInvalid={!!errors.ConfirmPassword}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.ConfirmPassword?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicIsProvider">
-          <Form.Label>Register as a Provider User</Form.Label>
-          <Form.Check
-            type="checkbox"
-            {...register("isProvider")}
-            isInvalid={!!errors.isProvider}
-          />
-
-          <Form.Control.Feedback type="invalid">
-            {errors.IsProvider?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
-
-        <p className="mt-3">
-          Already have an account?{" "}
-          <span
-            className="text-primary cursor cursor-pointer"
-            onClick={() => navigate("/login")}
-          >
-            Sign In
-          </span>
-        </p>
-
-        {error && <p className="text-danger mt-3">{error}</p>}
-      </Form>
-    </div>
+    <div
+  className="container pt-3 mt-5 d-flex justify-content-center align-items-center"
+  style={{
+    backgroundImage: `url(${logform1})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    
+  }}
+>
+  <div className="position-relative w-50">
+    <h2 className="font-bold text-2xl text-center mb-4">Register</h2>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter Email"
+          {...register("Email")}
+          isInvalid={!!errors.Email}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.Email?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+        <Form.Label>Phone Number</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter Phone Number"
+          {...register("PhoneNumber")}
+          isInvalid={!!errors.PhoneNumber}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.PhoneNumber?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicUsername">
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter Username"
+          {...register("Username")}
+          isInvalid={!!errors.Username}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.Username?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+          {...register("Password")}
+          isInvalid={!!errors.Password}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.Password?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+        <Form.Label>Confirm Password</Form.Label>
+        <Form.Control
+          type={showConfirmPassword ? "text" : "password"}
+          placeholder="Confirm Password"
+          {...register("ConfirmPassword")}
+          isInvalid={!!errors.ConfirmPassword}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.ConfirmPassword?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicIsProvider">
+        <Form.Label>Register as a Provider User</Form.Label>
+        <Form.Check
+          type="checkbox"
+          {...register("isProvider")}
+          isInvalid={!!errors.isProvider}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.IsProvider?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Register
+      </Button>
+      <p className="mt-3">
+        Already have an account?{" "}
+        <span
+          className="text-primary cursor cursor-pointer"
+          onClick={() => navigate("/login")}
+        >
+          Sign In
+        </span>
+      </p>
+      {error && <p className="text-danger mt-3">{error}</p>}
+    </Form>
+  </div>
+</div>
   );
 }
