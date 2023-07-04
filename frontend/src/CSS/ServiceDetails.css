@@ -28,10 +28,10 @@ body {
     border-radius: 40px;
 }
 
-
 .rate-view {
     background-color: white;
     padding: 1.5rem;
+    border-radius: 20px;
 }
 
 .star {

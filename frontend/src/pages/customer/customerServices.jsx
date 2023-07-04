@@ -11,7 +11,7 @@ export function CustomerService() {
 
 
     const { state } = useLocation();
-    const category = state?.category;
+    let category = state?.category;
     let [services, setServices] = useState([]);
 
     useEffect(() => {
@@ -43,13 +43,7 @@ export function CustomerService() {
             <div className='p-5 text-center'>
                 <div className='container'>
                     <div className=''>
-                        <h2 className=' mb-5 blurred-text'>My Services</h2></div>
-                    <div className="text-start">
-                        <NavLink to='' className='cartcardbtn mb-5'>
-
-                            Add New Product
-                        </NavLink>
-                    </div>
+                        <h2 className=' mb-5 blurred-text'>{category} Services</h2></div>
 
                     {
                         services.results && services.results.map((service) => {
@@ -59,7 +53,8 @@ export function CustomerService() {
                                 // </NavLink>
                             );
                         }
-                        )}
+                        )
+                    }
                 </div>
             </div>
         </div>

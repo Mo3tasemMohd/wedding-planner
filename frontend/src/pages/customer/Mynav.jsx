@@ -15,7 +15,7 @@ export  function Mynav() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center ">
         <Nav className="navtext ms-auto">
-          <Nav.Link className='home'   href="home">Home</Nav.Link>
+          <Nav.Link className='home'   href="/home">Home</Nav.Link>
           <Nav.Link className='service' href="#features">Services</Nav.Link>
         </Nav>
       </Navbar.Collapse>
