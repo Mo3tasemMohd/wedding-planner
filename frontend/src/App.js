@@ -58,6 +58,7 @@ function App() {
           {/* Customer routes */}
           <Route path="/home" element={<Home />} />
           <Route path="" element={<Home />} />
+          <Route path='/about' element={<AboutUs />} />
 
           {/* package page ----------------> */}<Route path="/package" element={<ProviderService />} />
               <Route path='/customer/services/:id' element={<ServiceDetails />} />

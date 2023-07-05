@@ -1,6 +1,7 @@
 .light-back {
     background-color: aliceblue !important;
 }
+
 i::before {
     color: #630655;
 }
@@ -14,15 +15,15 @@ i {
 
 .cartprodcard:hover {
     cursor: pointer;
-} 
+}
 
 .cartprodcard {
     background-color: rgba(171, 205, 205, 0.4) !important;
 }
 
-.cartcardbtn  * {
+.cartcardbtn * {
     color: black;
- 
+
 }
 
 .cartcardbtn {
@@ -50,27 +51,24 @@ i {
     object-fit: contain;
 }
 
-.provider-services {
+/* .provider-services {
     background-image: url('../../public/rings.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    /* height: 100vh;
-    overflow: hidden; */
-
-}
+} */
 
 .blurred-text {
     position: relative;
     display: inline-block;
     font-size: 48px;
     color: rgb(1, 0, 0);
-    text-shadow: 0px 0px 10px  rgba(101, 1, 1, 0.5);
+    text-shadow: 0px 0px 10px rgba(101, 1, 1, 0.5);
     margin: 20px;
-  }
-  
-  .blurred-text::before {
+}
+
+.blurred-text::before {
     content: "";
     position: absolute;
     top: -10px;
@@ -80,23 +78,23 @@ i {
     z-index: -1;
     background: linear-gradient(to bottom, #FF4136, #FFDC00);
     filter: blur(20px);
-  }
+}
 
 
-  .nav-link {
+.nav-link {
     text-decoration: none;
-  }
+}
 
-  .location-item{
+.location-item {
     color: #750000;
-  }
+}
 
 .text-output-area {
-  white-space: 'pre-wrap';
-  overflow: 'auto'; 
-  max-height: '150px';
-  border: solid 1px white;
-  padding: 1rem;
-  width: 80%;
-  border-radius: 10px;
+    white-space: 'pre-wrap';
+    overflow: 'auto';
+    max-height: '150px';
+    border: solid 1px white;
+    padding: 1rem;
+    width: 80%;
+    border-radius: 10px;
 }

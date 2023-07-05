@@ -89,10 +89,10 @@ export function ServiceDetails() {
     };
 
 
-
     let backToServices = () => {
         navigate('/home');
     };
+
 
     let source = 'http://localhost:8000';
     return (
@@ -133,10 +133,31 @@ export function ServiceDetails() {
                             <div className="text-output-area">{service.service_description}</div>
                         </div>
                         <p className="my-3 fs-4 col-sm-12 col-md-12">{service.decription}</p>
-                        {isProvider && <div className="my-3 col-sm-12 col-md-12">
-                            <button className="btn btn-warning col-4 ms-5 fs-5 ">Edit</button>
-                            <button className="btn btn-danger col-4 mx-5 fs-5">Delete</button>
-                        </div>}
+                        <div className="my-3 col-sm-12 col-md-12">
+                            <NavLink to={`/provider/services/${service.id}/edit`} className='btn mb-5 col-2 mx-4 fs-5 bg-warning'>
+                                Edit
+                            </NavLink>
+                            <NavLink onClick={handleDelete} className='btn mb-5 col-2 ms-4 fs-5 text-light bg-danger'>
+                                Delete
+                            </NavLink>
+                            {/* <button  className="btn btn-danger col-4 mx-5 fs-5">
+                                Delete
+                            </button> */}
+                            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Confirm Delete</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Are you sure you want to delete this service?</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="danger" onClick={deleteService}>
+                                        Delete
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </div>
                     </div>
                 </div>
                 <div className="rate-part p-5">
