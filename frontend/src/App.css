@@ -3,7 +3,36 @@
 }
 
 /* body {
-  background-image: url("https://thumbs.dreamstime.com/z/pink-floral-background-flowers-leaves-banner-border-wedding-spa-beauty-concept-beautiful-pink-floral-background-101468490.jpg");
+  background-image: url("https://images.pexels.com/photos/265856/pexels-photo-265856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
   background-repeat: no-repeat;
   background-size: cover;
 } */
+
+
+html{
+  padding-bottom: 10rem;
+  position: relative;
+
+}
+body {
+  min-height: 100%;
+  padding-bottom: 2rem;
+  box-sizing: content-box;
+  margin: 0px;
+  position: relative;
+}
+
+body {
+  background-color: #FFDEE9;
+  background-image: linear-gradient(180deg, #ffeef4 0%, #caf8f7a8 100%);
+}
+
+
+.custom-datepicker__input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-datepicker__month {
+  margin-bottom: 5px;
+}

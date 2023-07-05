@@ -302,3 +302,6 @@ def viewServiceStatistics(request, service_id):
     return Response(servicerates)
 
 
+# frefmfdkfggsklg
+
+

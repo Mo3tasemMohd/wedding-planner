@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render
+from customer.models import Customer
+from package.models import Package
 from customer.serializers import CustomerSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -25,10 +27,14 @@ def get_customer(request):
 def register(request):
     if request.method == 'POST':
         serializer = CustomerSerializer(data=request.data)
+        print(serializer)
         if serializer.is_valid():
-            
+            print("succeeeeeed")
             customer = serializer.save()
             tokens = customer.get_tokens()
+            print(customer)
+            print(tokens)
+
             response_data = {
                 'customer': serializer.data,
                 'tokens': tokens,

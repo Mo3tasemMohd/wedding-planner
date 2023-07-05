@@ -17,6 +17,8 @@ from rest_framework.parsers import MultiPartParser, FileUploadParser, FormParser
 from rest_framework.views import APIView
 from django.middleware.csrf import get_token
 
+from service.models import ReservedDates
+
 from .models import Package
 from .serializers import PackageSerializer
 
@@ -68,7 +70,7 @@ def CustomerPackageServices(request):
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 # @authentication_classes([JWTAuthentication])
 # @permission_classes([IsAuthenticated, IsNotProvider])
-@permission_classes([IsNotProvider]) #For Test
+@permission_classes([IsNotProvider])
 def AddToPackage(request):
   
     Current_customer_user = request.user
@@ -105,11 +107,17 @@ def DeleteFromPackage(request):
 def emptyPackage(request, package_id):
     try:
         package = Package.objects.get(id=package_id)
-        package.services.all().delete()
-        package.package_price = 0
+
+        package.empty_package()
+
+        allreservedDates = ReservedDates.objects.filter(user_reserved=request.user.id)
+        allreservedDates.delete()
+    
+        package.save()
         return Response("{} Is Empty Now".format(package))
     except Package.DoesNotExist:
         return Response({"Error - This Package Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class PackageViewSet(viewsets.ModelViewSet):
     serializer_class = PackageSerializer

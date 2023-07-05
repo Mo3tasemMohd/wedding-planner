@@ -27,3 +27,4 @@ urlpatterns = [
     path('<int:service_id>/view-stat/', views.viewServiceStatistics),
     path('<int:service_id>/rate/', views.check_service_rate)
 ]
+

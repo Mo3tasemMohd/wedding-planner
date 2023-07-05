@@ -40,24 +40,22 @@ export function ProviderService() {
                         </NavLink>
                     </div>
 
-                    {console.log(services)}
-                    {console.log(services.length)}
-
                     {
-                        services.length && services.map((service) => {
+                        services.length > 0 && services.map((service) => {
                             return (
                                 // <NavLink className={'nav-link'}>
                                 <ProviderServiceCard key={service.id
-                                } service={service} 
-                                onDelete={() => {
-                                    setServices(services.filter((s) => s.id !== service.id));
-                                  }}
-                          
-                                className="border-5" />
+                                } service={service}
+                                    onDelete={() => {
+                                        setServices(services.filter((s) => s.id !== service.id));
+                                    }}
+
+                                    className="border-5" />
                                 // </NavLink>
                             );
                         }
-                        )}
+                        )
+                    }
                 </div>
             </div>
         </div>
