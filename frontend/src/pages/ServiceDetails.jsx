@@ -122,52 +122,58 @@ export function ServiceDetails() {
     let source = 'http://localhost:8000';
     return (
         <div className=" p-4 text-center ">
-            <div className="row mt-5 p-4">
-                <div className="col-6 col">
-                    <div className="border-4 ">
+            <div className="row mt-5 p-4 details-container">
+                <div className="col-lg-6 col-md-6 col-sm-12">
+                    <div className="border-4">
                         <Carousel activeIndex={index} onSelect={handleSelectedImage}>
                             {service.images &&
                                 service.images.map((img, j) => (
                                     <Carousel.Item key={j}>
-                                        <img className="img-card col-sm-12 col-md-12" variant="top" src={source + img.image} alt={img.image} id="cart-img-card" />
+                                        <img className="img-card" variant="top" src={source + img.image} alt={img.image} id="cart-img-card" 
+                                        style={{ height: '400px', width: '80%', objectFit: 'cover', borderRadius: '10px' }} />
                                     </Carousel.Item>
-                                ))
-                            }
+                                ))}
                         </Carousel>
                     </div>
                 </div>
-                <div className="col-6 mt-5 text-start">
-                    <div className="d-flex flex-column flex-nowrap ps-3cjustify-content-center h-75">
-                        <div className="d-flex align-items-end">
-                            <h1 className=" mb-1 me-4">{service.service_service_category}</h1>
-                            <span className=" mt-4">
-                                <span className="d-flex align-items-end">
-                                    {serviceRate != null && <RateStars rating={serviceRate ? serviceRate : 0} className="mt-2" />}
-                                </span>
-                            </span>
+                <div className="col-lg-6 col-md-6 col-sm-12">
+                    <div className="text-start">
+                        <div className="d-flex flex-column flex-nowrap ps-3c justify-content-center h-75">
+                            <div className="d-flex align-items-end flex-wrap">
+                                <div className="col-12 mb-2">
+                                    <h1 className="mb-1 me-md-4 me-2">{service.service_service_category}</h1>
+                                </div>
+                                <div className="col-12 mb-2">
+                                    <span className="d-flex align-items-end">
+                                        {serviceRate != null && <RateStars rating={serviceRate ? serviceRate : 0} className="mt-2" />}
+                                    </span>
+                                </div>
+                            </div>                            <div className="mt-1 mb-4">
+                                <svg width="16" height="16" fill="currentColor" className="bi bi-geo-alt-fill location-item m-1" viewBox="0 0 16 16">
+                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                </svg>
+                                {service.service_location}
+                            </div>
+                            <h4 className="my-3 col-sm-12 col-md-12">Price: ${service.service_price}</h4>
+                            <div className="my-2">
+                                <h4 className="my-2 text-muted">Description</h4>
+                                <div className="text-output-area">{service.service_description}</div>
+                            </div>
+                            <p className="my-3 fs-4 col-sm-12 col-md-12">{service.description}</p>
+                            {console.log(user.is_provider)}
+                            {user.is_provider && (
+                                <div className="my-3 col-sm-12 col-md-12">
+                                    <NavLink to={`/services/${service.id}/edit`} className="cartcardbtn mb-5">
+                                        Edit
+                                    </NavLink>
+                                    <NavLink onClick={handleDelete} className="cartcardbtn mb-5">
+                                        Delete
+                                    </NavLink>
+                                </div>
+                            )}
                         </div>
-                        <div className="mt-1 mb-4">
-                            <svg width="16" height="16" fill="currentColor" className="bi bi-geo-alt-fill location-item m-1" viewBox="0 0 16 16">
-                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                            </svg>
-                            {service.service_location}
-                        </div>
-                        <h4 className="my-3 col-sm-12 col-md-12">Price: ${service.service_price}</h4>
-                        <div className="my-2">
-                            <h4 className="my-2 text-muted">Description</h4>
-                            <div className="text-output-area">{service.service_description}</div>
-                        </div>
-                        <p className="my-3 fs-4 col-sm-12 col-md-12">{service.decription}</p>
-                        {console.log(user.is_provider)}
-                        {user.is_provider && <div className="my-3 col-sm-12 col-md-12">
-                            <NavLink to={`/services/${service.id}/edit`} className='cartcardbtn mb-5'>
-                                Edit
-                            </NavLink>
-                            <NavLink onClick={handleDelete} className='cartcardbtn mb-5'>
-                                Delete
-                            </NavLink>
-                        </div>}
                     </div>
+
                 </div>
                 <div className="rate-part p-5">
                     <div className="rate-view row">

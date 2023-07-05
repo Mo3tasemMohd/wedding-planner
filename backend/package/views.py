@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status, filters, generics
-from rest_framework.decorators import (api_view, authentication_classes, permission_classes)
+from rest_framework.decorators import (api_view, authentication_classes, permission_classes, action)
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
@@ -27,6 +27,10 @@ from service.models import Service
 from service.serializers import ServiceSerializer
 
 from project.permissions import IsProvider, IsNotProvider
+
+from rest_framework import viewsets
+import stripe
+
 
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 # @authentication_classes([JWTAuthentication])
@@ -66,6 +70,7 @@ def CustomerPackageServices(request):
 # @permission_classes([IsAuthenticated, IsNotProvider])
 @permission_classes([IsNotProvider]) #For Test
 def AddToPackage(request):
+  
     Current_customer_user = request.user
     service = get_object_or_404(Service, id=request.data['services'])
     try:
@@ -106,3 +111,37 @@ def emptyPackage(request, package_id):
     except Package.DoesNotExist:
         return Response({"Error - This Package Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
+class PackageViewSet(viewsets.ModelViewSet):
+    serializer_class = PackageSerializer
+    queryset = Package.objects.all()
+
+    @action(detail=True, methods=['post'])
+    def checkout(self, request, pk=None):
+        package = self.get_object()
+        total_price =450 # package.package_price = sum(service.service_price for service in package.services.all())
+
+        stripe.api_key = 'sk_test_51NQSDPH4KQhMQHChhDx5nfs6zmyd2L4GcKfGsc2jNiZse4w2ikZRnVFHWXGZpCRFImpZeqpiy4D98sY2uzWEcWhu00J1d8vlu4'
+
+        # Create a Stripe Price object
+        price = stripe.Price.create(
+            unit_amount=total_price,
+            currency='usd',
+            product_data={
+                'name': 'Package',
+            }
+        )
+
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price': price.id,
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url='http://localhost:8000/pay_success',
+            cancel_url='http://localhost:8000/pay_cancel',
+            client_reference_id=package.id,
+        )
+
+        # Return the URL of the Stripe checkout page
+        return Response({'url': session.url})

@@ -5,8 +5,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
-from rest_framework_simplejwt.tokens import RefreshToken
-
 
 
 class Customer(AbstractUser):

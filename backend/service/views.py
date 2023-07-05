@@ -66,7 +66,6 @@ def showLoggedServices(request):
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
-    
     # to be deleted !!!!!!!!!!!!!!!!!!! 
 @api_view(["GET"])
 def showProviderServices(request, provider_id):
@@ -206,9 +205,19 @@ def getReservedDates(request, service_id):
     except:
         return Response({"Error - This Service Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
     
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getReservedDate(request, service_id):
+    try:
+        reserved_date = ReservedDates.objects.get(service_reserved=service_id, user_reserved=request.user)
+        serialized_reserved_date = ReservedDatesSerializer(reserved_date)
+        return Response(serialized_reserved_date.data, status=status.HTTP_200_OK)
+    except:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
-def deleteReservedDates(request, service_id):
+def deleteReservedDate(request, service_id):
     try:
         reserved_date = ReservedDates.objects.get(service_reserved=service_id, user_reserved=request.user)
         reserved_date.delete()
@@ -225,21 +234,15 @@ def deleteReservedDates(request, service_id):
 #         return Response("{} is deleted".format(reserved_date), status=status.HTTP_200_OK)
 #     except:
 #         return Response(status=status.HTTP_400_BAD_REQUEST)
-    
-    
+
+   
 # @api_view(["POST"])
 # @permission_classes([IsNotProvider]) 
 # def AddServiceRate(request):
-#     print(request)
 #     service = get_object_or_404(Service, id=request.data['service_rated'])
-#     print(service)
-#     print(service.id)
-
 #     serializered_rate = ServiceRateSerializer(data=request.data)
-#     print(serializered_rate)
 
 #     if serializered_rate.is_valid():
-#         print("valid")
 #         serializered_rate.save(service_rated=service, customer_user=request.user)
 #         return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
 #     return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -254,7 +257,6 @@ def AddServiceRate(request):
     service_rate = ServiceRate.objects.filter(customer_user=customer, service_rated=service).first()
     if service_rate == None:
         serializered_rate = ServiceRateSerializer(data=rate_data)
-
     else:
         serializered_rate = ServiceRateSerializer(service_rate, data=rate_data, partial=True)
 
@@ -262,8 +264,6 @@ def AddServiceRate(request):
         serializered_rate.save(service_rated=service, customer_user=customer)
         return Response(serializered_rate.data, status=status.HTTP_201_CREATED)
     return Response(serializered_rate.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 
 @api_view(["GET"])
@@ -300,4 +300,5 @@ def viewServiceStatistics(request, service_id):
 
     servicerates = ServiceRate.objects.filter(service_rated=service).values('service_rate').annotate(customersNum=Count('service_rate'))
     return Response(servicerates)
+
 
