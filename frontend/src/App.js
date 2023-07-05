@@ -4,6 +4,7 @@ import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/customer/Home";
+import { AboutUs } from "./pages/customer/AboutUs";
 import { ProviderService } from "./pages/provider/providerServices";
 import { CustomerService } from "./pages/customer/customerServices";
 import ServiceForm from "./pages/provider/ServiceForm";
