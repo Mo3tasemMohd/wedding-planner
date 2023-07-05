@@ -183,15 +183,13 @@ def deleteService(request, id):
 @permission_classes([IsAuthenticated])
 def addReservedDates(request):
     reserved = request.data
-    print(reserved)
+    reserved['user_reserved'] = request.user.id
     serialized_reserved = ReservedDatesSerializer(data=reserved)
     if serialized_reserved.is_valid():
         serialized_reserved.save()
         return Response(serialized_reserved.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized_reserved.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 # @authentication_classes([JWTAuthentication])
@@ -207,18 +205,37 @@ def getReservedDates(request, service_id):
         return Response({"Error - This Service Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(["DELETE"])
-# @permission_classes([IsAuthenticated])
-# def deleteReservedDates(request, service_id):
-@permission_classes([IsProvider])
-def deleteReservedDates(request, reserved_date_id):
+@permission_classes([IsAuthenticated])
+def deleteReservedDate(request, service_id):
     try:
-        reserved_date = ReservedDates.objects.get(id=reserved_date_id)
-        # reserved_date = ReservedDates.objects.filter(service_reserved=service_id, user_id=request.user)
-        # ________any customer can only have one reservation for each service________
+        reserved_date = ReservedDates.objects.get(service_reserved=service_id, user_reserved=request.user)
         reserved_date.delete()
         return Response("{} is deleted".format(reserved_date), status=status.HTTP_200_OK)
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+    
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getReservedDate(request, service_id):
+    try:
+        reserved_date = ReservedDates.objects.get(service_reserved=service_id, user_reserved=request.user)
+        serialized_reserved_date = ReservedDatesSerializer(reserved_date)
+        return Response(serialized_reserved_date.data, status=status.HTTP_200_OK)
+    except:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+# @api_view(["DELETE"])
+# @permission_classes([IsAuthenticated])
+# def deleteReservedDates(request, reserved_date_id):
+#     try:
+#         reserved_date = ReservedDates.objects.get(id=reserved_date_id)
+#         reserved_date.delete()
+#         return Response("{} is deleted".format(reserved_date), status=status.HTTP_200_OK)
+#     except:
+#         return Response(status=status.HTTP_400_BAD_REQUEST)
     
     
     

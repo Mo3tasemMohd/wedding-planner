@@ -11,6 +11,9 @@ class Package(models.Model):
     customer_user=models.OneToOneField(Customer,null=False, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     
+    def empty_package(self):        #Shorter Way To Make The Package Empty Of Services - The Endpoint Also Works
+        self.services.clear()
+    
     def __str__(self):
         return f"{self.customer_user.first_name} {self.customer_user.last_name} {' Package'}"
 

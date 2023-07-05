@@ -13,11 +13,7 @@ export function CustomerCard(props) {
   let [calendar, setCalendar] = useState(null)
   let [addedService, setAddedService] = useState(false)
   let [excluded, setExcluded] = useState([])
-  let timeRelevance = {
-    "15": 1,
-    "18": 2,
-    "21": 3
-  }
+
 
 
   let checkReserved = async () => {
@@ -31,13 +27,25 @@ export function CustomerCard(props) {
       }
     })
     .then((response) => response.json())
-    .then((data) => {
+    .then( async (data) => {
+      console.log(data.services)
       if ((data.services).includes(service.id)){
         console.log("(data.services).includes(service.id)")
         setAddedService(true)
-        
+        let date = await fetch(`http://127.0.0.1:8000/service/${service.id}/getreserveddate/`,
+        {
+          "method": 'GET',
+          "headers": {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+          }
+        }).then ((response) => response.json())
+        .then((data) => {
+          console.log("date: " , data)
+          setCalendar(new Date(`${data.date_reserved} ${data.slot_reserved}:00`))
+        })
       }
-    })
+    }).catch()
 
   }
 
@@ -47,7 +55,34 @@ export function CustomerCard(props) {
   
 
   let deleteFromPackage = async () => {
-
+    token = localStorage.getItem('token')
+    let response = await fetch(`http://127.0.0.1:8000/service/${service.id}/reserveddate/`,
+    {
+      'method': 'DELETE',
+      'headers': {
+        "Authorization": 'Bearer ' + token,
+        "Content-Type": 'application/json',
+      }
+    })
+    .then( async (response) => {
+      await fetch(`http://127.0.0.1:8000/package/delete-from-package/`,
+      {
+        'method': 'DELETE',
+        'headers': {
+          "Authorization": 'Bearer ' + token,
+          "Content-Type": 'application/json',
+        },
+        "body": JSON.stringify(
+          {
+           "services": service.id 
+          }
+        )
+      }).then(async (response) => {
+        setCalendar("")
+        setAddedService(false)
+        await showReservedDates()
+      })
+    })
   }
 
 
@@ -92,7 +127,6 @@ export function CustomerCard(props) {
               {
               "service_reserved": service.id,
               "date_reserved": tempDate,
-              // "slot_reserved": timeRelevance[time.toString()]
               "slot_reserved": time.toString()
               })
         })
@@ -114,9 +148,7 @@ export function CustomerCard(props) {
 
 
   const showReservedDates = async () => {
-    console.log('opened');
     let response = await fetch(`http://127.0.0.1:8000/service/${service.id}/reserveddates`);
-    console.log('fetched');
 
     if (response.status == 200) {
       let response_data = await response.json();
@@ -127,17 +159,6 @@ export function CustomerCard(props) {
     }
   };
 
-  // let filterReservations = (dates) => {
-  //   dates.map((date) => {
-  //     console.log(date['date_reserved'], date['slot_reserved'])
-  //     setExcluded([{
-  //         "time": `${date['slot_reserved']}:00`,
-  //         "date": date['date_reserved']
-  //       }, ...excluded 
-  //     ])
-  //   })
-  //   console.log(excluded)
-  // }
   
   const filterReservations = (dates) => {
     const newExcluded = dates.map((date) => ({

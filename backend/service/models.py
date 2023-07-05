@@ -34,8 +34,8 @@ class ServiceImage(models.Model):
     image = models.ImageField(upload_to='media/service_images')
 
 class ReservedDates(models.Model):
-    # user_reserved = models.ForeignKey(Customer, null=False)
     service_reserved = models.ForeignKey(Service, null=False, on_delete=models.CASCADE)
+    user_reserved = models.ForeignKey(Customer, null=False, on_delete=models.CASCADE)
     date_reserved = models.DateField(max_length=20)
     slot_reserved = models.IntegerField(null=True)
     

@@ -100,6 +100,15 @@ def DeleteFromPackage(request):
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(["DELETE"])
+def emptyPackage(request, package_id):
+    try:
+        package = Package.objects.get(id=package_id)
+        package.services.all().delete()
+        package.package_price = 0
+        return Response("{} Is Empty Now".format(package))
+    except Package.DoesNotExist:
+        return Response({"Error - This Package Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def test(request):

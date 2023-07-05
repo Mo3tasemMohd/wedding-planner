@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       {/* <Mynav/> */}
-      <CustomerCardsContainer />
+      {/* <CustomerCardsContainer /> */}
       <Routes>
         {/* Authentication routes */}
         <Route path='' element={<Login />} />
@@ -22,6 +22,7 @@ function App() {
         <Route path='/home' element={<Home />} />
 
         {/* Customer routes */}
+        <Route path='/services' element={<CustomerCardsContainer />} />
 
         {/* Provider routes */}
         <Route path='/provider/services' element={<ProviderService />} />
