@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 // import services from './services';
 import { NavLink } from "react-router-dom";
 import { CustomerServiceCard } from "../../components/customerServiceCard";
-import "../../../src/CSS/providerServices.css";
+import "../../../src/css/providerServices.css";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import AuthContext from "../../context/UserContext";

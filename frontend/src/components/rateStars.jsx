@@ -1,5 +1,5 @@
 import React from 'react';
-import "../CSS/providerServices.css"
+import "../css/providerServices.css"
 import ReactStars from 'react-rating-stars-component';
 
 export function RateStars({ rating }) {

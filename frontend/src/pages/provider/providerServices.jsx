@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 // import services from './services';
 import { NavLink } from 'react-router-dom';
 import { ProviderServiceCard } from '../../components/providerServiceCard';
-import "../../../src/CSS/providerServices.css"
+import "../../../src/css/providerServices.css"
 import axios from 'axios';
 
 

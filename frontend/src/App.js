@@ -44,6 +44,7 @@ function App() {
     else setUser({})
   }, [localStorage.getItem("token")]);
 
+
   return (
     <div className="App">
       <AuthContext.Provider value={user}>
@@ -58,14 +59,16 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="" element={<Home />} />
 
-          {(user && !user.is_provider)&& (
+          {/* package page ----------------> */}<Route path="/package" element={<ProviderService />} />
+
+          {(user && !user.is_provider) && (
             <>
-              <Route path="/customer/services" element={<CustomerService />} />
-        <Route path='/customer/services/:id' element={<ServiceDetails />} />
-        <Route path='/provider/services/:id' element={<ServiceDetails />} />
+              <Route path="/customer/services" element={<ProviderService />} />
+              <Route path='/customer/services/:id' element={<ServiceDetails />} />
+              <Route path='/provider/services/:id' element={<ServiceDetails />} />
 
               {/* Provider routes */}
-              <Route path="/provider/services" element={<ProviderService />} />
+              {/* Provider Services ----------------> */}<Route path="/myservices" element={<ProviderService />} />
 
               {/* <Route path='/provider/services/:id' element={<ServiceDetails />} /> */}
               <Route

@@ -4,7 +4,7 @@ import { BASE_URL } from "../../config/dataService";
 
 import logo2 from "../../media/home/logo2.png";
 import navlogo2 from "../../media/home/navlogo2.png";
-import "../../CSS/mynav.css";
+import "../../css/mynav.css";
 import axios from "axios";
 import AuthContext from "../../context/UserContext";
 import { NavLink } from "react-router-dom";
@@ -12,9 +12,9 @@ import { NavLink } from "react-router-dom";
 export function Mynav() {
   const user = useContext(AuthContext);
   let logoutUser = () => {
-        localStorage.removeItem("token");
-       
-      };
+    localStorage.removeItem("token");
+
+  };
   return (
     <div className=" body text-align-center">
       <Navbar
@@ -40,21 +40,32 @@ export function Mynav() {
           id="basic-navbar-nav"
           className="justify-content-center "
         >
+
           <Nav className="navtext ms-auto">
-            <NavLink style={{ textDecoration: 'none',color:'inherit' ,padding:'4px'}} className="home" href="home" to='home'>
+            <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="home" href="home" to='home'>
               Home
             </NavLink>
-            <NavLink style={{ textDecoration: 'none',color:'inherit' ,padding:'4px'}} className="service" to="/services">
-              Services
-            </NavLink>
-            {user ? (
-              <NavLink style={{ textDecoration: 'none',color:'inherit' ,padding:'4px'}} onClick={()=>logoutUser()} className="service" to="login">
+            {(Object.keys(user).length !== 0 ) &&
+              ((user.is_provider) ? (
+                <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="service" to="/myservices">
+                  My Services
+                </NavLink>
+              ) : (
+                <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="service" to="/package">
+                  Packages
+                </NavLink>
+              ))
+            }
+            {(Object.keys(user).length !== 0 ) ? (
+              <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} onClick={() => logoutUser()} className="service" to="/login">
                 Logout
               </NavLink>
             ) : (
-              <NavLink style={{ textDecoration: 'none',color:'inherit' ,padding:'4px'}}  className="service" to="home">
+              <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="service" to="/login">
                 Login
               </NavLink>
+
+
             )}
           </Nav>
         </Navbar.Collapse>

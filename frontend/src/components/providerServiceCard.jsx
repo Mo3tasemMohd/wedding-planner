@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, Carousel } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import "../CSS/providerServices.css"
+import "../css/providerServices.css"
 import { RateStars } from './rateStars'
 
 export function ProviderServiceCard(props) {
