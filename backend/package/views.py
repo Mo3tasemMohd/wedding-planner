@@ -23,7 +23,7 @@ from .serializers import PackageSerializer
 from customer.models import Customer
 from customer.serializers import CustomerSerializer
 
-from service.models import Service
+from service.models import Service, ReservedDates
 from service.serializers import ServiceSerializer
 
 from project.permissions import IsProvider, IsNotProvider
@@ -104,8 +104,13 @@ def DeleteFromPackage(request):
 def emptyPackage(request, package_id):
     try:
         package = Package.objects.get(id=package_id)
-        package.services.all().delete()
-        package.package_price = 0
+
+        package.empty_package()
+
+        allreservedDates = ReservedDates.objects.filter(user_reserved=request.user.id)
+        allreservedDates.delete()
+    
+        package.save()
         return Response("{} Is Empty Now".format(package))
     except Package.DoesNotExist:
         return Response({"Error - This Package Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)

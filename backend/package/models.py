@@ -13,6 +13,7 @@ class Package(models.Model):
     
     def empty_package(self):        #Shorter Way To Make The Package Empty Of Services - The Endpoint Also Works
         self.services.clear()
+        self.package_price = 0
     
     def __str__(self):
         return f"{self.customer_user.first_name} {self.customer_user.last_name} {' Package'}"

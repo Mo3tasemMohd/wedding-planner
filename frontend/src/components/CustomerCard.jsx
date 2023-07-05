@@ -56,43 +56,33 @@ export function CustomerCard(props) {
 
   let deleteFromPackage = async () => {
     token = localStorage.getItem('token')
-    let response = await fetch(`http://127.0.0.1:8000/service/${service.id}/reserveddate/`,
-    {
-      'method': 'DELETE',
-      'headers': {
-        "Authorization": 'Bearer ' + token,
-        "Content-Type": 'application/json',
-      }
-    })
-    .then( async (response) => {
-      await fetch(`http://127.0.0.1:8000/package/delete-from-package/`,
-      {
+        let response = await fetch(`http://127.0.0.1:8000/service/${service.id}/reserveddate/`,
+        {
         'method': 'DELETE',
         'headers': {
-          "Authorization": 'Bearer ' + token,
-          "Content-Type": 'application/json',
-        },
-        "body": JSON.stringify(
-          {
-           "services": service.id 
-          }
-        )
-      }).then(async (response) => {
-        setCalendar("")
-        setAddedService(false)
-        await showReservedDates()
-      })
-    })
+            "Authorization": 'Bearer ' + token,
+            "Content-Type": 'application/json',
+        }
+        })
+        .then( async (response) => {
+            let resp = await callPackage("delete-from-package", "DELETE")
+            if (resp.status == 200)
+            {
+                setCalendar("")
+                setAddedService(false)
+                await showReservedDates()
+            }
+        })
   }
 
 
-  let callPackage = async (url) => {
+  let callPackage = async (url, meth) => {
     token = localStorage.getItem('token')
     let response = await fetch(`http://127.0.0.1:8000/package/${url}/`, {
-        'method': 'POST',
+        'method': `${meth}`,
         'headers': {
-          'Authorization': 'Bearer ' + token,
-          'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
         },
         'body': JSON.stringify({"services": service.id})
     })
@@ -115,7 +105,7 @@ export function CustomerCard(props) {
     }
     else{
       setError(false)
-      let response = await callPackage("add-to-package")
+      let response = await callPackage("add-to-package", "POST")
       if (response.status == 200) {
         let date_response = await fetch("http://127.0.0.1:8000/service/add-service-reserveddate/", {
             'method': 'POST',
