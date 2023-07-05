@@ -96,8 +96,8 @@ export function ServiceDetails() {
 
     let source = 'http://localhost:8000';
     return (
-        <div className=" p-4 mt-5 text-center ">
-            <div className="row mt-5 p-4">
+        <div className=" p-4 text-center ">
+            <div className="row  p-4">
                 <div className="col-6 col">
                     <div className="border-4 ">
                         <Carousel activeIndex={index} onSelect={handleSelectedImage}>

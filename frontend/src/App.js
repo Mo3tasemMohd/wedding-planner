@@ -60,11 +60,12 @@ function App() {
           <Route path="" element={<Home />} />
 
           {/* package page ----------------> */}<Route path="/package" element={<ProviderService />} />
+              <Route path='/customer/services/:id' element={<ServiceDetails />} />
 
           {(user && !user.is_provider) && (
             <>
+            {console.log("I am here")}
               <Route path="/customer/services" element={<ProviderService />} />
-              <Route path='/customer/services/:id' element={<ServiceDetails />} />
               <Route path='/provider/services/:id' element={<ServiceDetails />} />
 
               {/* Provider routes */}
