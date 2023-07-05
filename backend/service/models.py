@@ -54,3 +54,4 @@ class ServiceRate(models.Model):
         return f"{self.service_rated.service_service_category} {self.service_rated.id} {' Rate'}"
 
 
+
