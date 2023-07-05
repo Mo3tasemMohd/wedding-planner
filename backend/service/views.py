@@ -301,4 +301,3 @@ def viewServiceStatistics(request, service_id):
     servicerates = ServiceRate.objects.filter(service_rated=service).values('service_rate').annotate(customersNum=Count('service_rate'))
     return Response(servicerates)
 
-
