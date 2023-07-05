@@ -713,6 +713,31 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Package Checkout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/packages/14/checkout/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"packages",
+								"14",
+								"checkout",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

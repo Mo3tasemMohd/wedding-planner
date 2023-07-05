@@ -111,34 +111,6 @@ def emptyPackage(request, package_id):
     except Package.DoesNotExist:
         return Response({"Error - This Package Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-# stripe.api_key = 'sk_test_51NQSDPH4KQhMQHChhDx5nfs6zmyd2L4GcKfGsc2jNiZse4w2ikZRnVFHWXGZpCRFImpZeqpiy4D98sY2uzWEcWhu00J1d8vlu4'
-# class PackageViewSet(viewsets.ModelViewSet):
-#     serializer_class = PackageSerializer
-#     queryset = Package.objects.all()
-
-#     @action(detail=True, methods=['post'])
-#     def checkout(self, request, pk=None):
-#         package = self.get_object()
-#         total_price = package.package_price = sum(service.service_price for service in package.services.all())
-#         session = stripe.checkout.Session.create(
-#             payment_method_types=['card'],
-#             line_items=[{
-#                 'name': 'Package',
-#                 'description': 'This Is Package Checkout description',
-#                 'amount': total_price,
-#                 'currency': 'usd',
-#                 'quantity': 1,
-#             }],
-#             success_url='http://localhost:8000/pay_success',
-#             cancel_url='http://localhost:8000/pay_cancel',
-#             client_reference_id=package.id
-#         )
-#         # Return the URL of the Stripe checkout page
-#         return Response({'url': session.url})
-
-
 class PackageViewSet(viewsets.ModelViewSet):
     serializer_class = PackageSerializer
     queryset = Package.objects.all()

@@ -20,8 +20,9 @@ urlpatterns = [
     path('delete-service/<int:id>', views.deleteService),
     
     path('add-service-reserveddate/', views.addReservedDates),
-    path('<int:service_id>/reserveddates', views.getReservedDates),
-    path('<int:reserved_date_id>/reserveddates/', views.deleteReservedDates),
+    path('<int:service_id>/reserveddates', views.getReservedDates),   
+    path('<int:service_id>/reserveddate/', views.deleteReservedDate),
+    path('<int:service_id>/getreserveddate/', views.getReservedDate),
     
     path('rate/', views.AddServiceRate),
     path('<int:service_id>/view-rate/', views.viewServiceRate),

@@ -204,9 +204,19 @@ def getReservedDates(request, service_id):
     except:
         return Response({"Error - This Service Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
     
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getReservedDate(request, service_id):
+    try:
+        reserved_date = ReservedDates.objects.get(service_reserved=service_id, user_reserved=request.user)
+        serialized_reserved_date = ReservedDatesSerializer(reserved_date)
+        return Response(serialized_reserved_date.data, status=status.HTTP_200_OK)
+    except:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
-def deleteReservedDates(request, service_id):
+def deleteReservedDate(request, service_id):
     try:
         reserved_date = ReservedDates.objects.get(service_reserved=service_id, user_reserved=request.user)
         reserved_date.delete()
