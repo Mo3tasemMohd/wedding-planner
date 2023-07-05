@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import "../css/providerServices.css"
 import { RateStars } from './rateStars'
 
-export function CustomerServiceCard(props) {
+export function CategoryServiceCard(props) {
     let { service } = props
     let nav = useNavigate()
     useEffect(() => {
@@ -67,12 +67,10 @@ export function CustomerServiceCard(props) {
                         </div>
                         <div className="row my-4">
                             <div className="text-start col-5">
-                                <NavLink to={`/provider/services/${service.id}`} className='cartcardbtn mb-5'>
+                                <NavLink to={`/services/${service.id}`} className='cartcardbtn mb-5'>
                                 Details</NavLink>
                             </div>
-  
                         </div>
-
                     </div>
                 </Card.Body>
             </Card>

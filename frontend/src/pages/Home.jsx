@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../../css/home.css'
-import Hall from '../../media/home/Hall.jpg'
-import Cars from '../../media/home/Cars.jpg'
-import Photosessions from '../../media/home/Photosessions.jpg'
-import Makeup from '../../media/home/Makeup.jpg'
-import bg1 from '../../media/home/bg1.jpg'
+import '../css/home.css'
+import Hall from '../media/home/Hall.jpg'
+import Cars from '../media/home/Cars.jpg'
+import Photosessions from '../media/home/Photosessions.jpg'
+import Makeup from '../media/home/Makeup.jpg'
+import bg1 from '../media/home/bg1.jpg'
 import { Card, Button, Col, Row, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,9 +20,8 @@ export function Home() {
     { id: 4, imgSrc: Makeup, title: 'Makeup', category: "MakeUp-Artist", text: 'Best Makeup artists for you' }
   ];
   const navigate = useNavigate();
-  const navToCategory = (category) => {
-    console.log(category);
-    navigate('/customer/services', { state: { category } });
+  const navToCategory = (title, category) => {
+    navigate('/services', { state: { title, category } });
   };
 
   const observeCards = () => {
@@ -80,7 +79,7 @@ export function Home() {
 
   return (
     <div className="cards-with-transition">
-      <img className='bg' src={bg1}></img>
+      <img className='bg' src={bg1} alt='background'></img>
       <div className='body w-100  pt-1'>
         <Container className=' m-auto mt-5'>
           <Row className="justify-content-center align-items-center ms-auto ">
@@ -99,7 +98,7 @@ export function Home() {
                       <Button
                         style={{ background: 'rgba(252, 224, 230)', border: '0px', color: 'black',width: '35%' }}
                         disabled={!visibleCards.includes(String(card.id))}
-                        onClick={() => navToCategory(card.category)}
+                        onClick={() => navToCategory(card.title, card.category)}
                       >
                        {card.title}
                       </Button>

@@ -3,19 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
-import { Home } from "./pages/customer/Home";
-import { AboutUs } from "./pages/customer/AboutUs";
-import { ProviderService } from "./pages/provider/providerServices";
-import { CustomerService } from "./pages/customer/customerServices";
-import ServiceForm from "./pages/provider/ServiceForm";
-import { Mynav } from "./pages/customer/Mynav";
+import { Home } from "./pages/Home";
+import { AboutUs } from "./pages/AboutUs";
+import { ProviderService } from "./pages/providerServices";
+import ServiceForm from "./pages/ServiceForm";
+import { Mynav } from "./components/Mynav";
 import { useLocation } from "react-router-dom";
 import AuthContext, { UserContext } from "./context/UserContext";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "./config/dataService";
-import { ServiceDetails } from './pages/customer/ServiceDetails';
-
+import { CategoryServices } from "./pages/CategoryServices";
+import { ServiceDetails } from "./pages/ServiceDetails";
 function App() {
   const location = useLocation();
 
@@ -53,31 +52,29 @@ function App() {
 
         <Routes>
           {/* Authentication routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* &&&&& */}<Route path="/login" element={<Login />} />
+          {/* &&&&& */}<Route path="/register" element={<Register />} />
 
           {/* Customer routes */}
-          <Route path="/home" element={<Home />} />
-          <Route path="" element={<Home />} />
-          <Route path='/about' element={<AboutUs />} />
+          {/* &&&&& */}<Route path="/home" element={<Home />} />
+          {/* &&&&& */}<Route path="" element={<Home />} />
+          {/* &&&&& */}<Route path='/about' element={<AboutUs />} />
 
           {/* package page ----------------> */}<Route path="/package" element={<ProviderService />} />
-              <Route path='/customer/services/:id' element={<ServiceDetails />} />
+          {/* &&&&& */}<Route path="/services" element={<CategoryServices />} />
+          {/* &&&&& */}<Route path='/services/:id' element={<ServiceDetails />} />
+          {/* &&&&& */}<Route path="/services/:id/edit" element={<ServiceForm />}
+          />  
+          {/* &&&&& */}<Route path="/myservices" element={<ProviderService />} />
 
           {(user && !user.is_provider) && (
             <>
-            {console.log("I am here")}
-              <Route path="/customer/services" element={<ProviderService />} />
-              <Route path='/provider/services/:id' element={<ServiceDetails />} />
+              {console.log("I am here")}
 
               {/* Provider routes */}
-              {/* Provider Services ----------------> */}<Route path="/myservices" element={<ProviderService />} />
 
-              {/* <Route path='/provider/services/:id' element={<ServiceDetails />} /> */}
-              <Route
-                path="/provider/services/:id/edit"
-                element={<ServiceForm />}
-              />
+
+
             </>
           )}
           <Route path="*/" element={<NotFound />} />

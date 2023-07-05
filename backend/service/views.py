@@ -66,6 +66,8 @@ def showLoggedServices(request):
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
+    
+    # to be deleted !!!!!!!!!!!!!!!!!!! 
 @api_view(["GET"])
 def showProviderServices(request, provider_id):
     try:

@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Carousel } from 'react-bootstrap';
+import React, { useContext, useState, useEffect } from 'react';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { Carousel, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
-import '../../css/ServiceDetails.css';
-import '../../css/providerServices.css';
-import { NotFound } from '../NotFound';
-import { RateStars } from '../../components/rateStars';
-import { calcRatesPercent, calculateAverageRate, nRates } from '../../js/rate';
+import '../css/ServiceDetails.css';
+import '../css/providerServices.css';
+import { RateStars } from '../components/rateStars';
+import { calcRatesPercent, calculateAverageRate, nRates } from '../js/rate';
 import ReactStars from 'react-rating-stars-component';
+import AuthContext from "../context/UserContext";
 
 export function ServiceDetails() {
+    const user = useContext(AuthContext);
+    console.log('user: ', user)
 
-    let isProvider = false;
     let { id } = useParams();
     let navigate = useNavigate();
 
@@ -23,6 +24,7 @@ export function ServiceDetails() {
     const [serviceRate, setServiceRate] = useState(null); // Initialize as null
     const [serviceRateLength, setServiceRateLength] = useState(null); // Initialize as null
     const [serviceRateState, setServiceRateState] = useState({}); // Initialize as null
+
     useEffect(() => {
         getServiceData();
         getServiceRate();
@@ -80,19 +82,42 @@ export function ServiceDetails() {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         };
-        response = await axios.get(`http://localhost:8000/service/${id}/rate/`, { headers });
-        setRating(response.data['rate_value'])
-        setSubmittedRate(response.data['rated'])
-        setIsLoaded(true)
-
+        { console.log(!user.is_provider) }
+        if (!user.is_provider) {
+            try {
+                response = await axios.get(`http://localhost:8000/service/${id}/rate/`, { headers });
+                setRating(response.data['rate_value'])
+                setSubmittedRate(response.data['rated'])
+                setIsLoaded(true)
+            }
+            catch (error) {
+                console.log(error)
+            }
+        }
 
     };
 
-
-
-    let backToServices = () => {
-        navigate('/home');
+    const [showModal, setShowModal] = useState(false);
+    let deleteService = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+            const response = await axios.delete(`http://localhost:8000/service/delete-service/${service.id}/`, { headers });
+            setShowModal(false)
+            console.log(response.data);
+            navigate('/myservices')
+        } catch (error) {
+            console.log(error)
+        }
     };
+
+    const handleDelete = () => {
+        setShowModal(true);
+    };
+
+
 
     let source = 'http://localhost:8000';
     return (
@@ -133,9 +158,14 @@ export function ServiceDetails() {
                             <div className="text-output-area">{service.service_description}</div>
                         </div>
                         <p className="my-3 fs-4 col-sm-12 col-md-12">{service.decription}</p>
-                        {isProvider && <div className="my-3 col-sm-12 col-md-12">
-                            <button className="btn btn-warning col-4 ms-5 fs-5 ">Edit</button>
-                            <button className="btn btn-danger col-4 mx-5 fs-5">Delete</button>
+                        {console.log(user.is_provider)}
+                        {user.is_provider && <div className="my-3 col-sm-12 col-md-12">
+                            <NavLink to={`/services/${service.id}/edit`} className='cartcardbtn mb-5'>
+                                Edit
+                            </NavLink>
+                            <NavLink onClick={handleDelete} className='cartcardbtn mb-5'>
+                                Delete
+                            </NavLink>
                         </div>}
                     </div>
                 </div>
@@ -182,7 +212,7 @@ export function ServiceDetails() {
                                     onClick={submitRate}
                                     id="submit-button"
                                     disabled={submittedRate}
-                                    className={"btn btn-success" }
+                                    className={"btn btn-success"}
                                 >
                                     {submittedRate ? (
                                         <>
@@ -198,13 +228,24 @@ export function ServiceDetails() {
                             </div>
                         </div>}
                     </div>
-                </div>            </div>
-
-            <div className="mt-4">
-                <button className="btn btn-dark fs-5" onClick={backToServices} >
-                    Back to Halls
-                </button>
+                </div>
             </div>
+
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to delete this service?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={deleteService}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
+
     )
 }

@@ -98,3 +98,13 @@ i {
     width: 80%;
     border-radius: 10px;
 }
+
+
+.container-page{
+    position: relative;
+}
+
+.container-page > div{
+    position: relative;
+    top:4rem;
+}

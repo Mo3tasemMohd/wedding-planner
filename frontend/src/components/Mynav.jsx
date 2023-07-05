@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { BASE_URL } from "../../config/dataService";
+import { BASE_URL } from "../config/dataService";
 
-import logo2 from "../../media/home/logo2.png";
-import navlogo2 from "../../media/home/navlogo2.png";
-import "../../css/mynav.css";
+import logo2 from "../media/home/logo2.png";
+import navlogo2 from "../media/home/navlogo2.png";
+import "../css/mynav.css";
 import axios from "axios";
-import AuthContext from "../../context/UserContext";
+import AuthContext from "../context/UserContext";
 import { NavLink } from "react-router-dom";
 
 export function Mynav() {
@@ -27,7 +27,7 @@ export function Mynav() {
           width: "100%",
         }}
       >
-        <Navbar.Brand href="home">
+        <Navbar.Brand href="/home">
           <img
             style={{ width: "150px", height: "80px" }}
             className="logo2"
@@ -42,7 +42,7 @@ export function Mynav() {
         >
 
           <Nav className="navtext ms-auto">
-            <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="home" href="home" to='home'>
+            <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="home" to='/home'>
               Home
             </NavLink>
             {(Object.keys(user).length !== 0 ) &&
@@ -51,11 +51,14 @@ export function Mynav() {
                   My Services
                 </NavLink>
               ) : (
-                <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="service" to="/package">
+                <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="service" to="/home">{/* /package*/}
                   Packages
                 </NavLink>
               ))
             }
+            <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="service" to='/about'>
+              About
+            </NavLink>
             {(Object.keys(user).length !== 0 ) ? (
               <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} onClick={() => logoutUser()} className="service" to="/login">
                 Logout

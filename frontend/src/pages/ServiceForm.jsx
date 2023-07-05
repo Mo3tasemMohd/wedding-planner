@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import "../../css/serviceForm.css"
+import "../css/serviceForm.css"
 
 export default function ServiceForm() {
     let navigate = useNavigate();
@@ -41,7 +41,7 @@ export default function ServiceForm() {
         if (id === '0') {
             axios.post('http://127.0.0.1:8000/service/add-service/', formData, { headers })
                 .then(() => {
-                    navigate('/provider/services');
+                    navigate('/myservices');
                 })
                 .catch((error) => {
                     console.log(error);
@@ -50,7 +50,7 @@ export default function ServiceForm() {
         } else {
             axios.put(`http://127.0.0.1:8000/service/update-service/${id}/`, formData, { headers })
                 .then(() => {
-                    navigate('/provider/services');
+                    navigate('/myservices');
                 })
                 .catch((error) => {
                     console.log(error);

@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { Card, Carousel } from 'react-bootstrap'
+import { Card, Carousel, Modal, Button } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import "../css/providerServices.css"
 import { RateStars } from './rateStars'
+import axios from 'axios'
 
 export function ProviderServiceCard(props) {
-    let { service } = props
-    let nav = useNavigate()
+    let { service, onDelete} = props
+    let navigate = useNavigate()
     useEffect(() => {
     }, [])
 
@@ -16,8 +17,25 @@ export function ProviderServiceCard(props) {
     const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex);
     };
+    const [showModal, setShowModal] = useState(false);
+    let deleteService = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+            const response = await axios.delete(`http://localhost:8000/service/delete-service/${service.id}/`, { headers });
+            setShowModal(false)
+            console.log(response.data);
+            onDelete(); 
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
-
+    const handleDelete = () => {
+        setShowModal(true);
+    };
     let source = "http://localhost:8000"
     return (
         <div className=' col-sm-12 col-12  mx-auto text-start '>
@@ -65,11 +83,38 @@ export function ProviderServiceCard(props) {
                             </div>
                         </div>
                         <div className="row my-4">
-                            <div className="text-start col-5">
-                                <NavLink to={`/provider/services/${service.id}`} className='cartcardbtn mb-5'>
-                                    View
+                            <div className="text-start col-3">
+                                <NavLink to={`/services/${service.id}`} className='cartcardbtn mb-5'>
+                                    Details
                                 </NavLink>
                             </div>
+                            <div className="text-start col-3">
+                                <NavLink to={`/services/${service.id}/edit`} className='cartcardbtn mb-5'>
+                                    Edit
+                                </NavLink>
+                            </div>
+                            <div className="text-start col-3">
+
+                            <NavLink onClick={handleDelete} className='cartcardbtn mb-5'>
+                                Delete
+                            </NavLink>
+                            </div>
+
+                            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Confirm Delete</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Are you sure you want to delete this service?</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="danger" onClick={deleteService}>
+                                        Delete
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+
                         </div>
 
                     </div>

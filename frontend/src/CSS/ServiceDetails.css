@@ -15,7 +15,7 @@ body {
     position: relative;
 }
 
-.row::before {
+/* .row::before {
     content: '';
     position: absolute;
     top: 0;
@@ -26,7 +26,7 @@ body {
     opacity: 0.5;
     z-index: -1;
     border-radius: 40px;
-}
+} */
 
 .rate-view {
     background-color: white;
