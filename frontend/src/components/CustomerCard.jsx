@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
@@ -6,7 +7,6 @@ import DatePicker from 'react-datepicker'
 
 export function CustomerCard(props) {
   let {service} = props
-  // let [token, setToken] = useState("")
   let token = ""
 
   let [error, setError] = useState(false)
@@ -18,19 +18,33 @@ export function CustomerCard(props) {
     "18": 2,
     "21": 3
   }
-  
-  let getToken = () => {
-    return localStorage.getItem('token')
+
+
+  let checkReserved = async () => {
+    token = localStorage.getItem('token')
+    let response =  await fetch ("http://127.0.0.1:8000/package/view/",
+    {
+      'method': 'GET',
+      'headers': {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if ((data.services).includes(service.id)){
+        console.log("(data.services).includes(service.id)")
+        setAddedService(true)
+        
+      }
+    })
+
   }
 
-
+  useEffect(() => {
+    checkReserved() 
+  }, [addedService])
   
-
-
-  const filterTime = (time) => {
-    const hours = time.getHours();
-    return hours >= 15 && hours < 24 ;
-  };
 
   let deleteFromPackage = async () => {
 
@@ -113,19 +127,30 @@ export function CustomerCard(props) {
     }
   };
 
-  let filterReservations = (dates) => {
-    dates.map((date) => {
-      console.log(date['date_reserved'], date['slot_reserved'])
-      setExcluded([{
-          "time": `${date['slot_reserved']}:00`,
-          "date": date['date_reserved']
-        }, ...excluded 
-      ])
-    })
-    console.log(excluded)
-  }
+  // let filterReservations = (dates) => {
+  //   dates.map((date) => {
+  //     console.log(date['date_reserved'], date['slot_reserved'])
+  //     setExcluded([{
+  //         "time": `${date['slot_reserved']}:00`,
+  //         "date": date['date_reserved']
+  //       }, ...excluded 
+  //     ])
+  //   })
+  //   console.log(excluded)
+  // }
   
-  
+  const filterReservations = (dates) => {
+    const newExcluded = dates.map((date) => ({
+      time: `${date.slot_reserved}:00`,
+      date: date.date_reserved,
+    }));
+    setExcluded(newExcluded);
+  };
+  const filterTime = (time) => {
+    const hours = time.getHours();
+    return hours >= 15 && hours < 24 ;
+  };
+
   return (
     <div className='col-lg-4 col-md-6 col-12'>
       <Card style={{ width: '100%' }}> 
@@ -172,7 +197,7 @@ export function CustomerCard(props) {
           </Card.Text>
           {error &&  (<p className='text-danger'> Select valid date and time </p>)}
 
-          {addedService && (<p className='text-success'>Reservation completed</p>)}
+          {/* {addedService && (<p className='text-success'>Reservation completed</p>)} */}
         </Card.Body>
 
         {addedService ? (

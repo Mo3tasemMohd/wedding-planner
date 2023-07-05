@@ -37,7 +37,7 @@ export function CustomerCardsContainer() {
 
         if(response.status === 200){
             setServices(data['results'])
-            console.log(data['results'])
+            // console.log(data['results'])
         }   
         else{
             console.log("failed")
