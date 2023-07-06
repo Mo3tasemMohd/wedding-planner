@@ -10,12 +10,18 @@ import { useNavigate } from "react-router-dom";
 import logform1 from "../media/home/logform1.png"
 
 const schema = Yup.object().shape({
-  Username: Yup.string().required("Username is required"),
-  Password: Yup.string().required("Password is required"),
+  Username: Yup.string()
+    .min(4, "Username must be at least 4 characters")
+    .required("Username is required"),
+  Password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
   ConfirmPassword: Yup.string()
     .oneOf([Yup.ref("Password"), null], "Passwords must match")
     .required("Confirm Password is required"),
-  Email: Yup.string().required("Email is required"),
+  Email: Yup.string()
+  .email("Please enter a valid email address (e.g. john@example.com)")
+    .required("Email is required"),
   PhoneNumber: Yup.string()
     .required("Phone number is required")
     .matches(/^\d{11}$/, "Phone number must be 11 digits"),
