@@ -119,21 +119,62 @@ def emptyPackage(request, package_id):
         return Response({"Error - This Package Doesn’t Exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+# class PackageViewSet(viewsets.ModelViewSet):
+#     serializer_class = PackageSerializer
+#     queryset = Package.objects.all()
+
+#     @action(detail=True, methods=['post'])
+#     def checkout(self, request, pk=None):
+#         package = self.get_object()
+#         total_price =450 # package.package_price = sum(service.service_price for service in package.services.all())
+
+#         stripe.api_key = 'sk_test_51NQSDPH4KQhMQHChhDx5nfs6zmyd2L4GcKfGsc2jNiZse4w2ikZRnVFHWXGZpCRFImpZeqpiy4D98sY2uzWEcWhu00J1d8vlu4'
+
+#         # Create a Stripe Price object
+#         price = stripe.Price.create(
+#             unit_amount=total_price,
+#             currency='usd',
+#             product_data={
+#                 'name': 'Package',
+#             }
+#         )
+
+#         session = stripe.checkout.Session.create(
+#             payment_method_types=['card'],
+#             line_items=[{
+#                 'price': price.id,
+#                 'quantity': 1,
+#             }],
+#             mode='payment',
+#             success_url='http://localhost:8000/pay_success',
+#             cancel_url='http://localhost:8000/pay_cancel',
+#             client_reference_id=package.id,
+#         )
+
+#         # Return the URL of the Stripe checkout page
+#         return Response({'url': session.url})
+
+
+
+
+
+stripe.api_key = 'sk_test_51NQSDPH4KQhMQHChhDx5nfs6zmyd2L4GcKfGsc2jNiZse4w2ikZRnVFHWXGZpCRFImpZeqpiy4D98sY2uzWEcWhu00J1d8vlu4'
 class PackageViewSet(viewsets.ModelViewSet):
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
-
+    permission_classes=[IsAuthenticated]
     @action(detail=True, methods=['post'])
     def checkout(self, request, pk=None):
         package = self.get_object()
-        total_price =450 # package.package_price = sum(service.service_price for service in package.services.all())
+        package.package_price = int(sum(service.service_price for service in package.services.all()))
+        print(package)
+        print(package.package_price)
 
-        stripe.api_key = 'sk_test_51NQSDPH4KQhMQHChhDx5nfs6zmyd2L4GcKfGsc2jNiZse4w2ikZRnVFHWXGZpCRFImpZeqpiy4D98sY2uzWEcWhu00J1d8vlu4'
 
         # Create a Stripe Price object
         price = stripe.Price.create(
-            unit_amount=total_price,
-            currency='usd',
+            unit_amount=package.package_price,
+            currency='egp',
             product_data={
                 'name': 'Package',
             }
@@ -146,10 +187,16 @@ class PackageViewSet(viewsets.ModelViewSet):
                 'quantity': 1,
             }],
             mode='payment',
-            success_url='http://localhost:8000/pay_success',
-            cancel_url='http://localhost:8000/pay_cancel',
+            success_url='http://localhost:3000/home/',
+            cancel_url='http://localhost:3000/home/',
             client_reference_id=package.id,
         )
 
         # Return the URL of the Stripe checkout page
         return Response({'url': session.url})
+    
+def payment_success(request):
+    return Response(request,status=status.HTTP_200_OK)
+def payment_cancel(request):
+    return Response(request,status=status.HTTP_200_OK)
+

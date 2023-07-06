@@ -27,14 +27,16 @@ export function Mynav() {
           width: "100%",
         }}
       >
-        <Navbar.Brand href="/home">
-          <img
-            style={{ width: "150px", height: "80px" }}
-            className="logo2"
-            src={logo2}
-            alt="Logo"
-          ></img>
-        </Navbar.Brand>
+        <NavLink to='/home'>
+          <Navbar.Brand >
+            <img
+              style={{ width: "150px", height: "80px" }}
+              className="logo2"
+              src={logo2}
+              alt="Logo"
+            ></img>
+          </Navbar.Brand>
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse
           id="basic-navbar-nav"

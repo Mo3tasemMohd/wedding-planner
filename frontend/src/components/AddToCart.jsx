@@ -48,7 +48,7 @@ export function AddToCart(props) {
 
   useEffect(() => {
     checkReserved() 
-  }, [addedService])
+  }, [])
   
 
   let deleteFromPackage = async () => {

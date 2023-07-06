@@ -33,7 +33,6 @@ function App() {
       })
       .then((user) => {
         setUser(user.data);
-        console.log(user.data);
       })
       .catch((err) => {
         // setErr(err.response.data.detail);
