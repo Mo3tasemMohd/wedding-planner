@@ -1,6 +1,7 @@
 from django.urls import path
 from service import views
 from .views import  UpdateServiceView, AddServiceView
+# from service import views
 
 # from rest_framework_simplejwt.views import (
 #     TokenObtainPairView,

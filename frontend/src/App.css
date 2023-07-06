@@ -12,6 +12,10 @@
 html{
   padding-bottom: 10rem;
   position: relative;
+}
+
+#root {
+  background-image: linear-gradient(180deg, #ffeef4 0%, #caf8f7a8 100%);
 
 }
 body {
@@ -27,12 +31,3 @@ body {
   background-image: linear-gradient(180deg, #ffeef4 0%, #caf8f7a8 100%);
 }
 
-
-.custom-datepicker__input-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.custom-datepicker__month {
-  margin-bottom: 5px;
-}

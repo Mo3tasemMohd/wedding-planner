@@ -165,20 +165,8 @@ export function AddToCart(props) {
   return (
     <div className='col-lg-4 col-md-6 col-12'>
       <Card style={{ width: '100%' }}> 
-        {service.images && service.images.map( (img, id) => {
-          return <Card.Img className='cardImg' key={id} variant="top" src={"http://127.0.0.1:8000/" + img.image} /> 
-        })}
         <Card.Body>
-          <Card.Title>{service.service_service_category}</Card.Title>
-          <Card.Text>
-          <Card.Title>Price: </Card.Title>
-            {service.service_price}
-          </Card.Text>
-          <Card.Text>
-            <Card.Title>Description: </Card.Title>
-            {service.service_description}
-          </Card.Text>
-          <Card.Text>
+          <span>
             <Card.Title>Pick date: </Card.Title>
             <DatePicker
               selected={calendar}
@@ -205,7 +193,7 @@ export function AddToCart(props) {
               timeIntervals={180}
               timeZone="Africa/Cairo"
             />
-          </Card.Text>
+          </span>
           {error &&  (<p className='text-danger'> Select valid date and time </p>)}
 
           {/* {addedService && (<p className='text-success'>Reservation completed</p>)} */}

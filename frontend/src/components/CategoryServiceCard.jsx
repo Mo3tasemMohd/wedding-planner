@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import "../css/providerServices.css"
 import { RateStars } from './rateStars'
-import { AddToCart } from './AddToCart'
+import { AddToCart } from '../components/AddToCart';
 import DatePicker from 'react-datepicker'
 
 export function CategoryServiceCard(props) {
@@ -68,27 +68,17 @@ export function CategoryServiceCard(props) {
                             </div>
                         </div>
                         <div className="row my-4">
-                            <div className="text-start col-5">
-                                <NavLink to={`/services/${service.id}`} className='cartcardbtn mb-5'>
-                                    Details</NavLink>
+                            <div className="text-start col-12 row">
+                                <div className='col-12 mb-4'>
+                                    <NavLink to={`/services/${service.id}`} className='cartcardbtn mb-5 '>
+                                        Details</NavLink>
+                                        </div>
+                                <div className='col-12'>
+                                    <AddToCart service={service} className='' />
+                                </div>
                             </div>
 
-
                         </div>
-
-                    </div>
-                    <div className='w-100' >
-                        <DatePicker
-                            showTimeSelect={true}
-                            
-                            dateFormat="yyyy-MM-dd HH:mm"
-                            minDate={new Date()}
-                            showYearDropdown
-                            scrollableMonthYearDropdown
-                            timeIntervals={180}
-                            timeZone="Africa/Cairo"
-                        />
-                        {/* <AddToCart service={service} style={{ height: "500px" }} /> */}
                     </div>
                 </Card.Body>
             </Card>

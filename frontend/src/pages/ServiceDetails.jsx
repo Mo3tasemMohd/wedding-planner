@@ -9,9 +9,9 @@ import { calcRatesPercent, calculateAverageRate, nRates } from '../js/rate';
 import ReactStars from 'react-rating-stars-component';
 import AuthContext from "../context/UserContext";
 
+
 export function ServiceDetails() {
     const user = useContext(AuthContext);
-    console.log('user: ', user)
 
     let { id } = useParams();
     let navigate = useNavigate();
@@ -129,8 +129,8 @@ export function ServiceDetails() {
                             {service.images &&
                                 service.images.map((img, j) => (
                                     <Carousel.Item key={j}>
-                                        <img className="img-card" variant="top" src={source + img.image} alt={img.image} id="cart-img-card" 
-                                        style={{ height: '400px', width: '80%', objectFit: 'cover', borderRadius: '10px' }} />
+                                        <img className="img-card" variant="top" src={source + img.image} alt={img.image} id="cart-img-card"
+                                            style={{ height: '400px', width: '80%', objectFit: 'cover', borderRadius: '10px' }} />
                                     </Carousel.Item>
                                 ))}
                         </Carousel>
@@ -138,7 +138,7 @@ export function ServiceDetails() {
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-12">
                     <div className="text-start">
-                        <div className="d-flex flex-column flex-nowrap ps-3c justify-content-center h-75">
+                        <div className="d-flex flex-column flex-nowrap justify-content-center h-75">
                             <div className="d-flex align-items-end flex-wrap">
                                 <div className="col-12 mb-2">
                                     <h1 className="mb-1 me-md-4 me-2">{service.service_service_category}</h1>
@@ -160,7 +160,6 @@ export function ServiceDetails() {
                                 <div className="text-output-area">{service.service_description}</div>
                             </div>
                             <p className="my-3 fs-4 col-sm-12 col-md-12">{service.description}</p>
-                            {console.log(user.is_provider)}
                             {user.is_provider && (
                                 <div className="my-3 col-sm-12 col-md-12">
                                     <NavLink to={`/services/${service.id}/edit`} className="cartcardbtn mb-5">
@@ -169,6 +168,11 @@ export function ServiceDetails() {
                                     <NavLink onClick={handleDelete} className="cartcardbtn mb-5">
                                         Delete
                                     </NavLink>
+                                </div>
+                            )}
+                            {!user.is_provider && (
+                                <div className='w-100' >
+                                    {console.log("Add to Cart in Details: " ,service )}
                                 </div>
                             )}
                         </div>
@@ -201,38 +205,40 @@ export function ServiceDetails() {
                                 </div>
                             </div>
                         </div>
-                        {isLoaded && <div className="col-md-6  text-start">
-                            <h2 className="mb-3">Rate this service</h2>
-                            <div className="col-md-6">
-                                <ReactStars
-                                    edit={true}
-                                    count={5}
-                                    size={30}
-                                    activeColor="#ffc107"
-                                    value={rating ? rating : 0}
-                                    onChange={handleRatingChange}
-                                />
+                        {isLoaded &&
+                            <div className="col-md-6  text-start">
+                                <h2 className="mb-3">Rate this service</h2>
+                                <div className="col-md-6">
+                                    <ReactStars
+                                        edit={true}
+                                        count={5}
+                                        size={30}
+                                        activeColor="#ffc107"
+                                        value={rating ? rating : 0}
+                                        onChange={handleRatingChange}
+                                    />
+                                </div>
+                                <div className="col-md-6 vertical-align-center">
+                                    <button
+                                        onClick={submitRate}
+                                        id="submit-button"
+                                        disabled={submittedRate}
+                                        className={"btn btn-success"}
+                                    >
+                                        {submittedRate ? (
+                                            <>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
+                                                    <path fillRule="evenodd" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm2.97 5.97a.75.75 0 0 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L5.97 8.03a.75.75 0 1 1 1.06-1.06l1.47 1.47 2.72-2.72z" />
+                                                </svg>
+                                                Submitted
+                                            </>
+                                        ) : (
+                                            "Submit"
+                                        )}
+                                    </button>
+                                </div>
                             </div>
-                            <div className="col-md-6 vertical-align-center">
-                                <button
-                                    onClick={submitRate}
-                                    id="submit-button"
-                                    disabled={submittedRate}
-                                    className={"btn btn-success"}
-                                >
-                                    {submittedRate ? (
-                                        <>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
-                                                <path fillRule="evenodd" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm2.97 5.97a.75.75 0 0 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L5.97 8.03a.75.75 0 1 1 1.06-1.06l1.47 1.47 2.72-2.72z" />
-                                            </svg>
-                                            Submitted
-                                        </>
-                                    ) : (
-                                        "Submit"
-                                    )}
-                                </button>
-                            </div>
-                        </div>}
+                        }
                     </div>
                 </div>
             </div>
