@@ -99,6 +99,15 @@ export function Login() {
             </div>
             {error && <p className="text-danger">{error}</p>}
           </Form>
+          <div className="mt-5">
+            Don't have an account?{" "}
+            <div
+              className="text-primary cursor cursor-point"
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -12,7 +12,8 @@ from customer import models
 from package import models
 from project.permissions import IsNotProvider, IsProvider
 from rest_framework.permissions import AllowAny
-
+from config import email_host
+from django.core.mail import send_mail
 
 #Register End-Point
 @api_view(['GET'])
@@ -27,13 +28,9 @@ def get_customer(request):
 def register(request):
     if request.method == 'POST':
         serializer = CustomerSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
-            print("succeeeeeed")
             customer = serializer.save()
             tokens = customer.get_tokens()
-            print(customer)
-            print(tokens)
 
             response_data = {
                 'customer': serializer.data,
@@ -41,7 +38,16 @@ def register(request):
             }
             customer=Customer.objects.get(username=request.data['username'])
             Package.objects.create(customer_user=customer, package_price=0)
-            
+            print("will send")
+            send_mail(
+            "Registration",
+            "Thank you for registering in our website Wedding Management!",
+            email_host,
+            [customer.email],
+            fail_silently=False,
+            )
+            print("sent")
+
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -14,6 +14,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+from config import email_host, email_password, db_user, db_password
+from django.core.mail import send_mail
 
 
 # Quick-start development settings - unsuitable for production
@@ -104,8 +106,8 @@ DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Wedding_management',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
+        'USER': db_user,
+        'PASSWORD': db_password,
         'HOST': 'localhost',
         'PORT': '5432',
         }
@@ -182,3 +184,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = email_host
+EMAIL_HOST_PASSWORD = email_password
+
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
