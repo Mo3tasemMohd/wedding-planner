@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { CustomerCard } from './CustomerCard'
 import { AddToCart } from '../components/AddToCart'
 
 export function Package() {
@@ -67,11 +66,11 @@ export function Package() {
             <div className="row justify-content-center p-5 g-3 bg-secondary">
                 {all ? 
                 (services.map( (_service) => {
-                    return <CustomerCard key={_service.id} service={_service} images={_service.images} />
+                    return <AddToCart key={_service.id} service={_service} images={_service.images} />
                 }))
                 :
                 (services.map( (_service) => {
-                    return <CustomerCard key={_service.id} service={_service} images={_service.images} />
+                    return <AddToCart key={_service.id} service={_service} images={_service.images} />
                 }))
                 }
                 {!all && (

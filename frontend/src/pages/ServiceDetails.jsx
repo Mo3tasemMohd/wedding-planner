@@ -160,7 +160,9 @@ export function ServiceDetails() {
                                 <div className="text-output-area">{service.service_description}</div>
                             </div>
                             <p className="my-3 fs-4 col-sm-12 col-md-12">{service.description}</p>
-                            {user.is_provider && (
+                            {console.log("service.service_provider", service.service_provider)}
+                            {console.log("user.id", user.id)}
+                            {(user.is_provider && user.id == service.service_provider) && (
                                 <div className="my-3 col-sm-12 col-md-12">
                                     <NavLink to={`/services/${service.id}/edit`} className="cartcardbtn mb-5">
                                         Edit

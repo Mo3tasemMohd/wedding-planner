@@ -28,9 +28,7 @@ export function AddToCart(props) {
     })
     .then((response) => response.json())
     .then( async (data) => {
-      console.log(data.services)
       if ((data.services).includes(service.id)){
-        console.log("(data.services).includes(service.id)")
         setAddedService(true)
         let date = await fetch(`http://127.0.0.1:8000/service/${service.id}/getreserveddate/`,
         {
@@ -41,7 +39,6 @@ export function AddToCart(props) {
           }
         }).then ((response) => response.json())
         .then((data) => {
-          console.log("date: " , data)
           setCalendar(new Date(`${data.date_reserved} ${data.slot_reserved}:00`))
         })
       }

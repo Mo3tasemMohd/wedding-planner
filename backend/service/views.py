@@ -209,7 +209,6 @@ def getReservedDates(request, service_id):
 @permission_classes([IsAuthenticated])
 def getReservedDate(request, service_id):
     try:
-        print(request.user)
         reserved_date = ReservedDates.objects.get(service_reserved=service_id, user_reserved=request.user)
         serialized_reserved_date = ReservedDatesSerializer(reserved_date)
         return Response(serialized_reserved_date.data, status=status.HTTP_200_OK)

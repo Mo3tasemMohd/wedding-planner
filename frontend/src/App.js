@@ -14,6 +14,7 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "./config/dataService";
 import { CategoryServices } from "./pages/CategoryServices";
+import { Package } from "./pages/Package";
 import { ServiceDetails } from "./pages/ServiceDetails";
 function App() {
   const location = useLocation();
@@ -59,25 +60,23 @@ function App() {
           {/* &&&&& */}<Route path="/home" element={<Home />} />
           {/* &&&&& */}<Route path="" element={<Home />} />
           {/* &&&&& */}<Route path='/about' element={<AboutUs />} />
-
-          {/* package page ----------------> */}<Route path="/package" element={<ProviderService />} />
           {/* &&&&& */}<Route path="/services" element={<CategoryServices />} />
           {/* &&&&& */}<Route path='/services/:id' element={<ServiceDetails />} />
-          {/* &&&&& */}<Route path="/services/:id/edit" element={<ServiceForm />}
-          />  
-          {/* &&&&& */}<Route path="/myservices" element={<ProviderService />} />
 
-          {(user && !user.is_provider) && (
+          {(user && user.is_provider) && (
             <>
-              {console.log("I am here")}
-
               {/* Provider routes */}
-
-
-
+              {/* &&&&& */}<Route path="/services/:id/edit" element={<ServiceForm />} />
+              {/* &&&&& */}<Route path="/myservices" element={<ProviderService />} />
             </>
           )}
-          <Route path="*/" element={<NotFound />} />
+          {(user && !user.is_provider) && (
+            <>
+              {/* Customer routes */}
+              {/* &&&&& */}<Route path="/package" element={<Package />} />
+            </>
+          )}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthContext.Provider>
     </div>

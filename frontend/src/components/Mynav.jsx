@@ -51,7 +51,7 @@ export function Mynav() {
                   My Services
                 </NavLink>
               ) : (
-                <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="service" to="/home">{/* /package*/}
+                <NavLink style={{ textDecoration: 'none', color: 'inherit', padding: '4px' }} className="service" to="/package">
                   Packages
                 </NavLink>
               ))

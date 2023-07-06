@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import { Card, Carousel } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import "../css/providerServices.css"
 import { RateStars } from './rateStars'
 import { AddToCart } from '../components/AddToCart';
 import DatePicker from 'react-datepicker'
+import AuthContext from "../context/UserContext";
 
 export function CategoryServiceCard(props) {
+    const user = useContext(AuthContext);
+
     let { service } = props
     let nav = useNavigate()
     useEffect(() => {
@@ -67,15 +70,19 @@ export function CategoryServiceCard(props) {
                                 {service.service_description}
                             </div>
                         </div>
+
                         <div className="row my-4">
                             <div className="text-start col-12 row">
                                 <div className='col-12 mb-4'>
                                     <NavLink to={`/services/${service.id}`} className='cartcardbtn mb-5 '>
                                         Details</NavLink>
                                         </div>
-                                <div className='col-12'>
+
+                                {Object.keys(user).length && !user.is_provider?  <div className='col-12'>
                                     <AddToCart service={service} className='' />
                                 </div>
+                            :<div></div>    
+                            }
                             </div>
 
                         </div>
